@@ -1,0 +1,100 @@
+#topheader{
+    background-color: white;
+    border-bottom: 3px solid silver;
+     
+}
+#topheader a{
+    color: black;
+    font-style: italic;
+    font-size: 0.89rem;
+
+}
+.container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+    
+}
+nav ul li a{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+#service-toggle{
+  
+    font-style: italic;
+}
+/*footer style*/
+.full-footer
+{
+    background-color: #34495e;
+   
+
+}
+.top-footer p {
+    color: white;
+}
+
+.top-footer a{
+    color: white;
+    font-weight: 600;
+  
+}
+.top-footer h3{
+    color: white;
+
+}
+#important-links{
+    padding-left: 1rem;
+}
+#map-info{
+    padding-left: 1rem;
+}
+
+.bottom-footer{
+    background-color: black;
+}
+
+.bottom-footer p{
+    color: white;
+}
+
+/*footer style end*/
+
+/*home page hero section */
+ .top-hero-section{
+
+    background-color: #2b3e50;
+    color: white;
+
+
+ }
+ .top-hero-section a{
+        color: white;
+ }
+
+.requirements-section
+{
+    background-color: #004d80;
+    color: white;
+}
+
+.home-newsletter{
+    background-color: #004d80;
+    color: white;
+}
+
+.home-newsletter .form-control{
+    height: 50px;
+    border-color: transparent;
+    border-radius: 20px  0  0  20px;
+}
+
+.home-newsletter .btn {
+    min-height: 50px;
+    border-radius: 0 20px 20px 0;
+    background: #be0280;
+    color: #fff;
+}
+
+.qualities-img {
+    width: 200px;
+}

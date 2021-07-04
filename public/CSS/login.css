@@ -1,0 +1,63 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.login_container {
+  background-image: url("/public/images/3.jpg");
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table01 {
+  width: 50vw;
+}
+.add-new {
+  background-color: #2b3e50;
+  color: white;
+  height: 30px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.login {
+  background-color: #2b3e50;
+  opacity: 0.9;
+  height: 70vh;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.signin {
+  background-color: #2b3e50;
+  opacity: 0.9;
+  height: 90vh;
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.form_signin {
+  height: 90vh;
+  margin: 20px;
+}
