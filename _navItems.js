@@ -1,13 +1,13 @@
 const menus = [
     {
-        title: 'Vehicles',
+        title: 'Users',
         icon: 'fas fa-tractor',
         href: "#",
         children: [
             {
-                title: 'Vehicle Brands',
+                title: 'Add Teacher',
                 icon: 'fas fa-align-left',
-                href: "/fleet-management/brands"
+                href: "/admin/addTeacher"
             },
             {
                 title: 'Vehicles',
