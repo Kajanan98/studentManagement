@@ -28,7 +28,7 @@ const findOne = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-    const username = req.body.id;
+    const username = req.body.username;
     const name = req.body.name;
     const address = req.body.address;
     const mobile = req.body.mobile_number;
