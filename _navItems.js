@@ -1,23 +1,34 @@
 const menus = [
     {
+        title: 'Home',
+        icon: 'fas fa-home',
+        href: "/dashboard",
+        children: false
+    },
+    {
         title: 'Users',
-        icon: 'fas fa-tractor',
+        icon: 'fas fa-users',
         href: "#",
         children: [
             {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/users"
+            },
+            {
                 title: 'Add Teacher',
-                icon: 'fas fa-align-left',
-                href: "/admin/addTeacher"
-            },
-            {
-                title: 'Vehicles',
-                icon: 'fas fa-tractor',
-                href: "/fleet-management/vehicles"
-            },
-            {
-                title: 'Add Vehicles',
                 icon: 'fas fa-plus',
-                href: "/fleet-management/vehicles/new"
+                href: "/users/addTeacher"
+            },
+            {
+                title: 'Add Student',
+                icon: 'fas fa-plus',
+                href: "/users/addTeacher"
+            },
+            {
+                title: 'Add Parent',
+                icon: 'fas fa-plus',
+                href: "/users/addTeacher"
             }
         ]
     },

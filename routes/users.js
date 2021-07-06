@@ -9,14 +9,14 @@ const userController = require('../controllers/User')
 // })
 
 router.get('/', async (req, res) => {
-    res.render('admin/', { result: [] })
+    res.render('users/', { result: [] })
 })
 router.get('/newUser', async (req, res) => {
-    res.render('admin/newUser', { title: 'New User', data: false })
+    res.render('users/newUser', { title: 'New User', data: false })
 })
 
 router.get('/addTeacher', async (req, res) => {
-    res.render('admin/newUser', { title: 'New Teacher', data: [], brands: [] })
+    res.render('users/newUser', { title: 'New Teacher', data: [], brands: [] })
 })
 
 router.get('/editUser/:id', userController.findOne)
