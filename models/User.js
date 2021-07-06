@@ -54,4 +54,22 @@ const UserSchema = new mongoose.Schema({
     // }
 })
 
-module.exports = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema);
+
+
+exports.createUser = (name, address, mobile, NIC, username, password, type) => {
+    const user = new User({
+        name, address, mobile, NIC, username, password, type
+    })
+    return user.save()
+}
+
+exports.findOne = (username) => {
+    return User.findOne({ username })
+}
+
+exports.updateUser = (username,name, address, mobile, NIC, password, type) => {
+    return User.updateOne({ username }, {
+        $set: { name, address, mobile, NIC, password, type }
+    })
+}

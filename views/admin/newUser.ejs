@@ -8,29 +8,46 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form method="post" action="/fleet-management/vehicles/<%= (data === false ) ? 'new' : 'editSubmit' %>">
+    <form method="post" action="<%=(data === false ) ? '/admin/newUser/new' : '/admin/editUser/editSubmit/'+data.username %>">
     <div class="card-body">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" value="<%= data !== false ? data.title : '' %>" required>
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="<%= data !== false ? data.name : '' %>" required>
         </div>
         <div class="form-group">
-            <label for="platenumber">Plate Number</label>
-            <input type="text" class="form-control" id="platenumber" name="plate_number" placeholder="Enter Palate Number" value="<%= data !== false ? data.plate_number : '' %>">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" value="<%= data !== false ? data.address : '' %>">
         </div>
         <div class="form-group">
-            <label for="registrations">Registrations</label>
-            <input type="text" class="form-control" id="registrations" name="registrations" placeholder="Registrations" value="<%= data !== false ? data.registrations : '' %>">
+            <label for="mobilenumber">Mobile Number</label>
+            <input type="text" class="form-control" id="mobilenumber" name="mobile_number" placeholder="Mobile Number" value="<%= data !== false ? data.mobile : '' %>">
         </div>
         <div class="form-group">
-            <label for="brand">Brand</label>
-            <select class="form-control" id="brand" name="brand" required>
-                <% brands.forEach( brand => { %>
-                    <option value="<%= brand.id %>" <%= (data!==false && data.brand===brand.id)?'selected':'' %>><%= brand.title %></option>
-                <% }) %>
+            <label for="nic">NIC</label>
+            <input type="text" class="form-control" id="nic" name="nic" placeholder="Enter NIC" value="<%= data !== false ? data.NIC : '' %>" required>
+        </div>
+        <% if(data===false){ %>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="user_name" placeholder="Enter User Name" value="<%= data !== false ? data.username : '' %>">
+        </div>
+        <% } %>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="text" class="form-control" id="password" name="password" placeholder="Password" value="<%= data !== false ? data.password : '' %>">
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" id="type" name="type" required>
+                <option value="" selected >Choose Type</option>
+                <option value="principal" <%= (data!==false && data.type==="principal")?'selected':'' %>>Principal</option>
+                <option value="teacher" <%= (data!==false && data.type==="teacher")?'selected':'' %>>Teacher</option>
+                <option value="student" <%= (data!==false && data.type==="student")?'selected':'' %>>Student</option>
+                <option value="parent" <%= (data!==false && data.type==="parent")?'selected':'' %>>Parent</option>
+                
             </select>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="remarks">Remarks</label>
             <textarea class="form-control" id="remarks" name="remarks" placeholder="Enter shot info"><%= data !== false ? data.remarks : '' %></textarea>
         </div>
@@ -44,13 +61,13 @@
                 <div class="input-group-append">
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- /.card-body -->
 
     <div class="card-footer">
         <% if(data!==false){ %>
-            <input type="hidden" name="id" value="<%= data.id %>">
+            <input type="hidden" name="username" value="<%= data.username %>">
         <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
