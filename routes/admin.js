@@ -27,6 +27,6 @@ router.get('/addTeacher', async (req, res) => {
 
 router.get('/editUser/:id',userController.findOne)
 router.post('/newUser/new',userController.createUser);
-router.put('/editUser/editSubmit/:id',userController.updateUser);
+router.post('/editUser/editSubmit/:id',userController.updateUser);
 
 module.exports = router
