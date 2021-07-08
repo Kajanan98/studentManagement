@@ -30,5 +30,7 @@ router.get('/dashboard', (req, res) => {
 router.use('/admin', require('./admin'))
 router.use('/users', require('./users'))
 router.use('/teacher', require('./teacher'))
+router.use('/notices', require('./notices'))
+router.use('/comments', require('./comment'))
 
 module.exports = router
