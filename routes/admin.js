@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('../controllers/User')
+const userController = require('../controllers/userController')
 //admin dashboard
 // router.get('/', async (req, res) => {
 //     var ob = await teacher.find()

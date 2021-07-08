@@ -1,6 +1,26 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt')
 
+const listAll = (req, res) => {
+    User.listAll()
+        .then(data => {
+            res.render('users', { data })
+        })
+        .catch(console.log)
+}
+
+const addTeacher = (req, res) => {
+    res.render('users/newUser', { userType: 'teacher', data: false, title: 'Add Teacher' })
+}
+
+const addStudent = (req, res) => {
+    res.render('users/newUser', { userType: 'student', data: false, title: 'Add Student' })
+}
+
+const addParent = (req, res) => {
+    res.render('users/newUser', { userType: 'parent', data: false, title: 'Add Parent' })
+}
+
 const createUser = async (req, res) => {
     const name = req.body.name;
     const address = req.body.address;
@@ -33,8 +53,6 @@ const findOne = (req, res) => {
 const getUsers = (req, res) => {
     User.getUsers()
         .then((result) => {
-
-
             res.render('admin/newClass', {
                 title: 'Add New Class',
                 data: false,
@@ -44,7 +62,6 @@ const getUsers = (req, res) => {
                 periods: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
 
             })
-
         })
         .catch(console.log);
 }
@@ -66,6 +83,10 @@ const updateUser = (req, res) => {
 }
 
 module.exports = {
+    listAll,
+    addTeacher,
+    addStudent,
+    addParent,
     createUser,
     findOne,
     updateUser,

@@ -23,12 +23,12 @@ const menus = [
             {
                 title: 'Add Student',
                 icon: 'fas fa-plus',
-                href: "/users/addTeacher"
+                href: "/users/addStudent"
             },
             {
                 title: 'Add Parent',
                 icon: 'fas fa-plus',
-                href: "/users/addTeacher"
+                href: "/users/addParent"
             }
         ]
     },
@@ -52,6 +52,23 @@ const menus = [
                 icon: 'fas fa-plus',
                 href: "/classes/new"
             }
+        ]
+    },
+    {
+        title: 'Attendance',
+        icon: 'fas fa-clipboard',
+        href: "#",
+        children: [
+            {
+                title: 'View',
+                icon: 'fas fa-list',
+                href: "/attendance"
+            },
+            {
+                title: 'Take attendance',
+                icon: 'fas fa-calendar-alt',
+                href: "/attendance/add"
+            },
         ]
     },
     {

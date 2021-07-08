@@ -56,6 +56,9 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
+exports.listAll = () => {
+    return User.find()
+}
 
 exports.createUser = (name, address, mobile, NIC, username, password, type) => {
     const user = new User({

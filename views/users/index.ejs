@@ -1,10 +1,10 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
+<%- include('../partials/_top', {title:"Users", current_menu : {parent: 'Users', child: 'List'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
     <div class="card-header">
-      <h3 class="card-title">Vehicles</h3>
+      <h3 class="card-title">Users</h3>
       <a class="btn btn-primary float-right" href="/fleet-management/vehicles/new">Add new vehicle</a>
     </div>
     <!-- /.card-header -->
@@ -13,24 +13,24 @@
         <thead>
           <tr>
             <th style="width: 40px">#</th>
-            <th>Title</th>
-            <th>Plate Number</th>
-            <th>Brand</th>
-            <th>Registrations</th>
-            <th>Remarks</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Address Number</th>
+            <th>Mobile</th>
+            <th>NIC</th>
             <th style="width: 120px" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <% var count = 1; %>
-          <% result.forEach( row => { %>
+          <% data.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= row.title %></td>
-              <td><%= row.plate_number %></td>
-              <td><%= row.brand %></td>
-              <td><%= row.registrations %></td>
-              <td><%= row.remarks %></td>
+              <td><%= row.name %></td>
+              <td><%= row.type %></td>
+              <td><%= row.address %></td>
+              <td><%= row.mobile %></td>
+              <td><%= row.NIC %></td>
               <td class="text-center">
                 <a href="/fleet-management/vehicles/edit/<%= row.id %>"><i class="fas fa-edit"></i></a>
                 <a href="/fleet-management/vehicles/delete/<%= row.id %>"><i class="fas fa-trash-alt"></i></a>
@@ -38,17 +38,6 @@
             </tr>
           <% }) %>
         </tbody>
-        <tfoot>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Plate Number</th>
-            <th>Brand</th>
-            <th>Registrations</th>
-            <th>Remarks</th>
-            <th style="width: 120px" class="text-center">Action</th>
-          </tr>
-        </tfoot>
       </table>
     </div>
     <!-- /.card-body -->
