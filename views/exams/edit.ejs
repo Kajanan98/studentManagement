@@ -1,0 +1,74 @@
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Add Exam", current_menu : {parent: 'Exams', child: 'Add Exam'} }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+        <h3 class="card-title">Update Exam</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="post" action="<%='/exams/edit/'+data._id %>">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="type">Class</label>
+            <select class="form-control" id="classId" name="classId" required>
+                <option value="">Choose Class</option>
+                <option value="principal" <%= (data!==false && data.classId==="principal")?'selected':'' %>>Principal</option>
+                <option value="teacher" <%= (data!==false && data.classId==="teacher")?'selected':'' %>>Teacher</option>
+                <option value="student" <%= (data!==false && data.classId==="student")?'selected':'' %>>Student</option>
+                <option value="parent" <%= (data!==false && data.classId==="parent")?'selected':'' %>>Parent</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject" value="<%=data.subject%>" required>
+        </div>
+        <div class="form-group">
+            <label>Date & time:</label>
+            <div class="input-group date" data-target-input="nearest">
+                <input type="text" value="<%=data.date%>" class="form-control datetimepicker-input" name="datetime" id="examdatetime" data-toggle="datetimepicker" data-target="#examdatetime"/>
+                <div class="input-group-append">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="icheck-primary d-inline">
+                <input type="radio" id="isFinished1" name="isFinished" value="true" checked>
+                <label for="isFinished1">
+                    Finished
+                </label>
+            </div>
+            <div class="icheck-primary d-inline">
+                <input type="radio" id="isFinished2" name="isFinished" value="false" >
+                <label for="isFinished2">
+                    Not finished
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>
+<script src="../../plugins/moment/moment.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script>
+    $(function () {
+        $('#examdatetime').datetimepicker({
+            locale: 'ru'
+        });
+    })
+</script>

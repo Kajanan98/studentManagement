@@ -14,13 +14,13 @@ var ClassSchema = mongoose.Schema({
     },
     students: [{
         userId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Users'
         }
     }],
     teachers: [{
         userId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Users'
         },
         subject: String

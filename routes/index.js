@@ -29,6 +29,7 @@ router.get('/dashboard', (req, res) => {
 })
 router.use('/admin', require('./admin'))
 router.use('/users', require('./users'))
+router.use('/exams', require('./exams'))
 router.use('/teacher', require('./teacher'))
 
 module.exports = router

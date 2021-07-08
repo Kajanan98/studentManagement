@@ -33,19 +33,19 @@ const menus = [
         ]
     },
     {
-        title: 'Supplies',
-        icon: 'fas fa-truck-loading',
+        title: 'Exams',
+        icon: 'fas fa-book-open',
         href: "#",
         children: [
             {
-                title: 'View',
-                icon: 'fas fa-eye',
-                href: "/fleet-management/supplies"
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/exams"
             },
             {
-                title: 'New Supply',
+                title: 'Add Exam',
                 icon: 'fas fa-plus',
-                href: "/fleet-management/supplies/new"
+                href: "/exams/new"
             }
         ]
     },
