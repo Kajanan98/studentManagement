@@ -33,6 +33,42 @@ const menus = [
         ]
     },
     {
+        title: 'Notices',
+        icon: 'fas fa-book',
+        href: "#",
+        children: [
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/notices/1"
+            },
+            {
+                title: 'Add Notice',
+                icon: 'fas fa-plus',
+                href: "/notices/new"
+            },
+           
+        ]
+    },
+    {
+        title: 'Comments',
+        icon: 'fas fa-comments',
+        href: "#",
+        children: [
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/comments/1"
+            },
+            {
+                title: 'Add Comment',
+                icon: 'fas fa-plus',
+                href: "/comments/new"
+            },
+           
+        ]
+    },
+    {
         title: 'Supplies',
         icon: 'fas fa-truck-loading',
         href: "#",
