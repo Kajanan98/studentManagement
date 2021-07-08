@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-
+var Schema = mongoose.Schema;
 // Class schema
 
-var ClassSchema = mongoose.Schema({
+var ClassSchema = new mongoose.Schema({
     title: {
         type: String
     },
@@ -32,17 +32,41 @@ var ClassSchema = mongoose.Schema({
     }]
 });
 
-var Class = module.exports = mongoose.model('Class', ClassSchema);
+var Class =  mongoose.model('Class', ClassSchema);
+
+//module.exports =
+
+exports.createClass = (title, description, instructor, students, teachers, timeTable) => {
+    const classes = new Class({
+        title, description, instructor, students, teachers, timeTable
+    })
+    return classes.save()
+}
+
+exports.findOne = (title) => {
+    return Class.findOne({ title })
+}
+
+exports.updateClass = (title, description, instructor, students, teachers, timeTable) => {
+    return Class.updateOne({ title }, {
+        $set: {  description, instructor, students, teachers, timeTable }
+    })
+}
+
+
+
+
+
 
 // Fetch all classes
-module.exports.getClasses = function (callback, limit) {
-    Class.find(callback).limit(limit);
-};
+// module.exports.getClasses = function (callback, limit) {
+//     Class.find(callback).limit(limit);
+// };
 
-// Fetch a single class
-module.exports.getClassById = function (id, callback) {
-    Class.findById(id, callback);
-};
+// // Fetch a single class
+// module.exports.getClassById = function (id, callback) {
+//     Class.findById(id, callback);
+// };
 
 // Create a lesson
 // module.exports.addLesson = function (info, callback) {

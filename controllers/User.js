@@ -30,6 +30,25 @@ const findOne = (req, res) => {
         .catch(console.log)
 }
 
+const getUsers = (req, res) => {
+    User.getUsers()
+        .then((result) => {
+            
+            
+                res.render('admin/newClass',{
+                    title:'Add New Class',
+                    data:false,
+                    users:result,
+                    teachers:[],
+                    days:['Monday','Tuesday','Wednesday','Thursday','Friday'],
+                    periods:['1','2','3','4','5','6','7','8','9'],
+                    
+                })
+            
+        })
+        .catch(console.log);
+}
+
 const updateUser = (req, res) => {
     const username = req.body.username;
     const name = req.body.name;
@@ -49,5 +68,6 @@ const updateUser = (req, res) => {
 module.exports = {
     createUser,
     findOne,
-    updateUser
+    updateUser,
+    getUsers
 }

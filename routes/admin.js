@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/User')
+const classController = require('../controllers/classController')
 //admin dashboard
 // router.get('/', async (req, res) => {
 //     var ob = await teacher.find()
@@ -22,5 +23,9 @@ router.get('/addTeacher', async (req, res) => {
 router.get('/editUser/:id', userController.findOne)
 router.post('/newUser/new', userController.createUser);
 router.post('/editUser/editSubmit/:id', userController.updateUser);
+
+router.get('/newClass',userController.getUsers)
+router.get('/jjj',userController.getUsers)
+router.post('/newClass/new', classController.createClass);
 
 module.exports = router

@@ -68,6 +68,11 @@ exports.findOne = (username) => {
     return User.findOne({ username })
 }
 
+
+exports.getUsers = () => {
+    return User.find()
+}
+
 exports.updateUser = (username, name, address, mobile, NIC, password, type) => {
     return User.updateOne({ username }, {
         $set: { name, address, mobile, NIC, password, type }
