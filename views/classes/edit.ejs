@@ -22,7 +22,6 @@
             <div class="form-group">
                 <label for="classTeacher">Class Teacher</label>
                 <select class="form-control" id="classTeacher" name="classTeacher" >
-                    <option value="">Choose Teacher</option>
                     <% teachers.forEach(function(teacher){%>
                         <option value="<%= teacher._id %>" <%= (data.classTeacher.toString()===teacher._id.toString())?'selected':'' %>><%= teacher.name %> - <%= teacher.username %></option>
                     <%})%>

@@ -25,7 +25,7 @@
               <td><%= count++ %></td>
               <td><%= row.title %></td>
               <td><%= row.description %></td>
-              <td><%= row._classTeacher[0].name %></td>
+              <td><%= row._classTeacher[0] ? row._classTeacher[0].name : '' %></td>
               <td class="text-center">
                 <a href="/classes/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
                 <a href="/classes/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>

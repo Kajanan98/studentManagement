@@ -9,12 +9,17 @@ const listAll = (req, res) => {
         .catch(console.log)
 }
 
-const newClass = (req, res) => {
-    Class.initiate()
-        .then(result => {
-            res.redirect('/classes/edit/' + result._id);
-        })
-        .catch(console.log)
+const newClass = async (req, res) => {
+    const teachers = await User.getTeachers();
+    if (teachers.length) {
+        Class.initiate(teachers[0]._id)
+            .then(result => {
+                res.redirect('/classes/edit/' + result._id);
+            })
+            .catch(console.log)
+    } else {
+        res.render('error', { message: 'To create a class, you must have a teacher record', parent: 'Classes', child: 'Add Class' })
+    }
 }
 
 const viewEidtPage = (req, res) => {
@@ -76,6 +81,16 @@ const viewTimeTable = (req, res) => {
         .catch(console.log)
 }
 
+
+const deleteOne = (req, res) => {
+    const { id } = req.params;
+    Class.deleteOne(id)
+        .then(result => {
+            res.redirect('/classes')
+        })
+        .catch(console.log);
+}
+
 module.exports = {
     listAll,
     newClass,
@@ -84,5 +99,6 @@ module.exports = {
     addStudent,
     removeStudent,
     timetableSelectClass,
-    viewTimeTable
+    viewTimeTable,
+    deleteOne
 }

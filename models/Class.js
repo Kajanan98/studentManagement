@@ -50,8 +50,8 @@ exports.listAll = () => {
     ])
 }
 
-exports.initiate = () => {
-    const classObj = new Class()
+exports.initiate = (classTeacher) => {
+    const classObj = new Class({ classTeacher })
     return classObj.save()
 }
 
@@ -91,9 +91,13 @@ exports.addTeacher = (_id, title, description, classTeacher) => {
     })
 }
 
+exports.findLast = () => {
+    return Class.find().sort('_id').limit(1).then(array => array[0])
+}
 
-
-
+exports.deleteOne = (_id) => {
+    return Class.findOneAndDelete({ _id })
+}
 
 
 // Fetch all classes

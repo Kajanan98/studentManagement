@@ -28,8 +28,8 @@
               <td><%= moment(new Date(row.date)).format("DD-MM-YYYY") %></td>
               <td><%= moment(new Date(row.date)).format("hh:mm") %></td>
               <td><%= row.subject %></td>
-              <td><%= row.classId %></td>
-              <td><%= row.isFinished %></td>
+              <td><%= row._class[0] ? row._class[0].title : '' %></td>
+              <td><%= row.isFinished ? 'Finished' : 'Not Finished' %></td>
               <td class="text-center">
                 <a href="/exams/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
                 <a href="/exams/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>

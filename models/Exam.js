@@ -36,11 +36,20 @@ const ExamSchema = new mongoose.Schema({
 const Exam = mongoose.model('Exam', ExamSchema)
 
 exports.listAll = () => {
-    return Exam.find()
+    return Exam.aggregate([
+        {
+            $lookup: {
+                from: "classes",
+                as: '_class',
+                localField: 'classId',
+                foreignField: '_id'
+            }
+        },
+    ])
 }
 
-exports.initiate = () => {
-    const exam = new Exam();
+exports.initiate = (classId) => {
+    const exam = new Exam({ classId });
     return exam.save()
 }
 
@@ -55,4 +64,8 @@ exports.update = (id, date, subject, classId, isFinished) => {
 
 exports.findOne = (id) => {
     return Exam.findById(id)
+}
+
+exports.deleteOne = (_id) => {
+    return Exam.findOneAndDelete({ _id })
 }

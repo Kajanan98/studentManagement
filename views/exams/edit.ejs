@@ -15,11 +15,9 @@
         <div class="form-group">
             <label for="type">Class</label>
             <select class="form-control" id="classId" name="classId" required>
-                <option value="">Choose Class</option>
-                <option value="principal" <%= (data!==false && data.classId==="principal")?'selected':'' %>>Principal</option>
-                <option value="teacher" <%= (data!==false && data.classId==="teacher")?'selected':'' %>>Teacher</option>
-                <option value="student" <%= (data!==false && data.classId==="student")?'selected':'' %>>Student</option>
-                <option value="parent" <%= (data!==false && data.classId==="parent")?'selected':'' %>>Parent</option>
+                <% classes.forEach(function(classObj){%>
+                    <option value="<%= classObj._id %>" <%= (data.classId.toString()===classObj._id.toString())?'selected':'' %>><%= classObj.title %></option>
+                <%})%>
             </select>
         </div>
         <div class="form-group">
@@ -37,13 +35,13 @@
         </div>
         <div class="form-group">
             <div class="icheck-primary d-inline">
-                <input type="radio" id="isFinished1" name="isFinished" value="true" checked>
+                <input type="radio" id="isFinished1" name="isFinished" value="true" <%= data.isFinished?'checked':'' %>>
                 <label for="isFinished1">
                     Finished
                 </label>
             </div>
             <div class="icheck-primary d-inline">
-                <input type="radio" id="isFinished2" name="isFinished" value="false" >
+                <input type="radio" id="isFinished2" name="isFinished" value="false" <%= data.isFinished?'':'checked' %>>
                 <label for="isFinished2">
                     Not finished
                 </label>

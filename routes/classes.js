@@ -9,5 +9,6 @@ router.post('/addStudent/:classId', classController.addStudent)
 router.post('/removeStudent/:classId', classController.removeStudent)
 router.get('/timetable', classController.timetableSelectClass)
 router.get('/timetable/:classId', classController.viewTimeTable)
+router.get('/delete/:id', classController.deleteOne)
 
 module.exports = router
