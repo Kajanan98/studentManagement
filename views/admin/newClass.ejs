@@ -1,0 +1,89 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+        <h3 class="card-title"><%= title %></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="post" action="<%=(data === false ) ? '/admin/newClass/new' : '/admin/editClass/editSubmit/'+data.title %>">
+    <div class="card-body">
+        <% if(data!==false){ var read='readonly';}%>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="<%= data !== false ? data.name : '' %>" required <%=read%>>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="<%= data !== false ? data.address : '' %>">
+        </div>
+        <div class="form-group">
+            <label for="instructor">Class Teacher</label>
+            <select class="form-control" id="instructor" name="instructor" >
+                <option value="" selected >Choose Teacher</option>
+                <% teachers.forEach(function(teacher){%>
+                    <option value="<%= teacher.username %>" <%= (data!==false)?'selected':'' %>><%= teacher.name %> - <%= teacher.username %></option>
+                <%})%>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="students">Students</label>
+            <select class="form-control" id="students" name="students[#{1}][userId]"  multiple>
+                
+                <% users.forEach(function(user){%>
+                   <% if(user.type==='student'){%>
+                    <option value="<%= user._id %>" <%= (data!==false)?'selected':'' %>><%= user.name %> - <%= user.username %></option>
+                    <% } %>
+                <%})%>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="teachers">Teachers</label>
+            <select class="form-control" id="teachers" name="teachers[]"  multiple>
+                
+                <% users.forEach(function(user){%>
+                    <% if(user.type==='teacher'){%>
+                     <option value="<%= user._id %>" <%= (data!==false)?'selected':'' %>><%= user.name %> - <%= user.username %></option>
+                     <% } %>
+                 <%})%>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="timeTable">Time Table</label>
+            <div class="container">
+                <% days.forEach(function(day){%>
+                    <% periods.forEach(function(period){%>
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="text" class="form-control" id="period" name="period[]"  value="<%= period %> "  readonly>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" id="day" name="day[]"  value="<%= day %> "  readonly>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" id="subject" name="subject[]"  placeholder=""  >
+                            </div>
+                            
+                        </div>
+                    <% }) %> 
+                <% }) %> 
+
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+        <% if(data!==false){ %>
+            <input type="hidden" name="title" value="<%= data.title %>">
+        <% } %>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>
