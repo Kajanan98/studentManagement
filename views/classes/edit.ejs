@@ -1,0 +1,97 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Edit Classs", current_menu : {parent: 'Classes', child: 'edit'} }) %>
+<!-- header-section end -->
+
+
+<!-- details start -->
+<form method="post" action="<%='/classes/edit/'+data._id %>">
+    <div class="card card-primary m-3">
+        <div class="card-header">
+            <h3 class="card-title">Class Details</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="<%=data.title%>" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="<%= data.description %>">
+            </div>
+            <div class="form-group">
+                <label for="classTeacher">Class Teacher</label>
+                <select class="form-control" id="classTeacher" name="classTeacher" >
+                    <option value="">Choose Teacher</option>
+                    <% teachers.forEach(function(teacher){%>
+                        <option value="<%= teacher._id %>" <%= (data.classTeacher.toString()===teacher._id.toString())?'selected':'' %>><%= teacher.name %> - <%= teacher.username %></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+    <!-- /.card -->
+</form>
+<!-- /details end -->
+
+<!-- Students start -->
+<div class="card card-primary m-3">
+    <div class="card-header">
+        <h3 class="card-title">Class Students</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="form-group">
+            <label for="students">Students</label>
+            <table>
+                <% data.students.forEach(function(classStudent){%>
+                    <tr>
+                        <% classStudentDetail = students.find( student => student._id.toString() === classStudent.userId.toString() ) %>
+                        <td style="padding: 0 15px"><%= classStudentDetail.name %></td>
+                        <td style="padding: 0 15px"><%= classStudentDetail.username %></td>
+                        <td style="padding: 0 15px">
+                            <form method="post" action="<%='/classes/removeStudent/'+data._id %>">
+                                <button type="submit" name="studentId" value="<%= classStudent.userId %>" class="btn btn-primary">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                <%})%>
+                <% if(data.students.length == 0){%>
+                    <tr>
+                        <td>No Students</td>
+                    </tr>
+                <%}%>
+            </table>
+        </div>
+        <form method="post" action="<%='/classes/addStudent/'+data._id %>">
+            <% const restStudents = students.filter(student => !data.students.find( classStudent => classStudent.userId.toString() == student._id.toString() )); %>
+            <% if(restStudents.length == 0){%>
+                <div class="form-group">
+                    <label>No more students to add</label>
+                </div>
+            <%} else { %>
+                <div class="form-group">
+                    <label for="students">Add Student</label>
+                    <select class="form-control" id="students" name="studentId">
+                        <% restStudents.forEach(function(user){%>
+                            <option value="<%= user._id %>"><%= user.name %> - <%= user.username %></option>
+                        <%})%>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            <%}%>
+        </form>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- /Students end -->
+
+<%- include('../partials/_bottom') %>

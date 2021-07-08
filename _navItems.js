@@ -33,6 +33,28 @@ const menus = [
         ]
     },
     {
+        title: 'Classes',
+        icon: 'fas fa-chalkboard-teacher',
+        href: "#",
+        children: [
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/classes"
+            },
+            {
+                title: 'TimeTable',
+                icon: 'fas fa-calendar-alt',
+                href: "/classes/timetable"
+            },
+            {
+                title: 'Add Class',
+                icon: 'fas fa-plus',
+                href: "/classes/new"
+            }
+        ]
+    },
+    {
         title: 'Exams',
         icon: 'fas fa-book-open',
         href: "#",

@@ -1,25 +1,88 @@
-const User = require('../models/Class');
+const Class = require('../models/Class');
+const User = require('../models/User');
 
-
-const createClass = async (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    const instructor = req.body.instructor;
-    const students = [{userId:'60e3a4da3204ef0318e4c38f'},{userId:'60e3a5233204ef0318e4c390'}];//Array.prototype.slice.call(req.body.students);
-    const teachers = [];//req.body.teachers;
-    const timeTable = [req.body.day,req.body.period,req.body.subject];
-    
-console.log(students);
-    User.createClass(title, description, instructor, students, teachers, timeTable)
+const listAll = (req, res) => {
+    Class.listAll()
         .then(result => {
-            res.redirect('/');
+            res.render('classes', { data: result });
         })
         .catch(console.log)
 }
 
+const newClass = (req, res) => {
+    Class.initiate()
+        .then(result => {
+            res.redirect('/classes/edit/' + result._id);
+        })
+        .catch(console.log)
+}
 
+const viewEidtPage = (req, res) => {
+    const { id } = req.params;
+    Class.findOne(id)
+        .then(async result => {
+            const students = await User.getStudents();
+            const teachers = await User.getTeachers();
+            res.render('classes/edit', { data: result, students, teachers })
+        })
+        .catch(console.log)
+}
+
+const updateDetails = (req, res) => {
+    const { id } = req.params;
+    const { title, description, classTeacher } = req.body;
+
+    Class.updateDetails(id, title, description, classTeacher)
+        .then(result => {
+            res.redirect('/classes');
+        })
+        .catch(console.log)
+}
+
+const addStudent = (req, res) => {
+    const { classId } = req.params
+    const { studentId } = req.body;
+    Class.addStudent(classId, studentId)
+        .then(result => {
+            res.redirect('/classes/edit/' + classId);
+        })
+        .catch(console.log)
+}
+
+const removeStudent = (req, res) => {
+    const { classId } = req.params
+    const { studentId } = req.body;
+    Class.removeStudent(classId, studentId)
+        .then(result => {
+            res.redirect('/classes/edit/' + classId);
+        })
+        .catch(console.log)
+}
+
+const timetableSelectClass = (req, res) => {
+    Class.listAll()
+        .then(result => {
+            res.render('classes/timetableSelectClass', { data: result });
+        })
+        .catch(console.log)
+}
+
+const viewTimeTable = (req, res) => {
+    const { classId } = req.params;
+    Class.findOne(classId)
+        .then(result => {
+            res.render('classes/timetable', { data: result });
+        })
+        .catch(console.log)
+}
 
 module.exports = {
-    createClass,
-    
+    listAll,
+    newClass,
+    updateDetails,
+    viewEidtPage,
+    addStudent,
+    removeStudent,
+    timetableSelectClass,
+    viewTimeTable
 }

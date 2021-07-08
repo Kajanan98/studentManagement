@@ -86,3 +86,12 @@ exports.findByUsername = (username) => {
 exports.getUserByID = (id) => {
     return User.findById(id)
 }
+
+exports.getStudents = () => {
+    return User.find({ type: 'student' })
+}
+
+exports.getTeachers = () => {
+    return User.find({ type: 'teacher' })
+}
+

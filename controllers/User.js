@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     User.createUser(name, address, mobile, NIC, username, hashedPassword, type)
         .then(result => {
-            res.redirect('/');
+            res.redirect('/users');
         })
         .catch(console.log)
 }
@@ -33,18 +33,18 @@ const findOne = (req, res) => {
 const getUsers = (req, res) => {
     User.getUsers()
         .then((result) => {
-            
-            
-                res.render('admin/newClass',{
-                    title:'Add New Class',
-                    data:false,
-                    users:result,
-                    teachers:[],
-                    days:['Monday','Tuesday','Wednesday','Thursday','Friday'],
-                    periods:['1','2','3','4','5','6','7','8','9'],
-                    
-                })
-            
+
+
+            res.render('admin/newClass', {
+                title: 'Add New Class',
+                data: false,
+                users: result,
+                teachers: [],
+                days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                periods: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+
+            })
+
         })
         .catch(console.log);
 }
