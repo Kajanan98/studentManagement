@@ -56,6 +56,9 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
+exports.listAll = () => {
+    return User.find()
+}
 
 exports.createUser = (name, address, mobile, NIC, username, password, type) => {
     const user = new User({
@@ -85,4 +88,16 @@ exports.findByUsername = (username) => {
 
 exports.getUserByID = (id) => {
     return User.findById(id)
+}
+
+exports.getStudents = () => {
+    return User.find({ type: 'student' })
+}
+
+exports.getTeachers = () => {
+    return User.find({ type: 'teacher' })
+}
+
+exports.deleteOne = (_id) => {
+    return User.findOneAndDelete({ _id })
 }

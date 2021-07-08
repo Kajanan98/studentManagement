@@ -1,0 +1,121 @@
+<%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
+
+
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- About Me Box -->
+    <div class="container-fluid">
+    <div class="row">
+    <div class="card card-primary col-md-3">
+      <div class="card-header">
+        <h3 class="card-title">About Me</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <strong><i class="fa fa-address-book mr-1"></i> Name</strong>
+
+        <p class="text-muted">
+          <%= data.name %>
+        </p>
+
+        <hr>
+
+        <strong><i class="fas fa-map-marker-alt mr-1"></i> Address</strong>
+
+        <p class="text-muted">
+          <%= data.address %>
+        </p>
+
+        <hr>
+        <strong><i class="fas fa-mobile mr-1"></i> Mobile Number</strong>
+
+        <p class="text-muted">
+          <%= data.mobile %>
+        </p>
+
+        <hr>
+
+        <strong><i class="fa fa-id-card mr-1"></i> NIC</strong>
+
+        <p class="text-muted">
+          <%= data.NIC %>
+        </p>
+
+        <hr>
+
+        <strong><i class="fa fa-user mr-1"></i> Username</strong>
+
+        <p class="text-muted">
+          <%= data.username %>
+        </p>
+
+        <hr>
+ 
+        
+      </div>
+      <!-- /.card-body -->
+    </div>
+      <div class="col-md-9">
+        <section class="content">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Attendance</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    
+                    <th>Date</th>
+                    <th>Present or Absent</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <% data.attendance.forEach( row => { %>
+                    <tr data-id="<%= row.id %>">
+                      
+                      <td><%= row.date %></td>
+                      <td><%= row.attendance %></td>
+                      
+                    </tr>
+                  <% }) %>
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+      </div>
+        <!-- /.card -->
+        </section></div></div>
+<%- include('../partials/_bottom') %>
+        
+        <!-- DataTables  & Plugins -->
+        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+      
+      
+
+        
+      
+        
+        <script>
+            $(function () {
+              $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                
+              }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+          </script>

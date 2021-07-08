@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 const ExamResultSchema = new mongoose.Schema({
     studentId: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
     },
     result: {
@@ -20,10 +20,10 @@ const ExamSchema = new mongoose.Schema({
     },
     subject: {
         type: String,
-        required: true
+        default: ''
     },
-    class: {
-        type: Schema.Types.ObjectId,
+    classId: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Classes'
     },
     isFinished: {
@@ -33,4 +33,39 @@ const ExamSchema = new mongoose.Schema({
     results: [ExamResultSchema]
 })
 
-module.exports = mongoose.model('Exam', ExamSchema)
+const Exam = mongoose.model('Exam', ExamSchema)
+
+exports.listAll = () => {
+    return Exam.aggregate([
+        {
+            $lookup: {
+                from: "classes",
+                as: '_class',
+                localField: 'classId',
+                foreignField: '_id'
+            }
+        },
+    ])
+}
+
+exports.initiate = (classId) => {
+    const exam = new Exam({ classId });
+    return exam.save()
+}
+
+exports.update = (id, date, subject, classId, isFinished) => {
+    return Exam.updateOne(
+        { _id: id },
+        {
+            $set: { id, date, subject, classId, isFinished }
+        }
+    )
+}
+
+exports.findOne = (id) => {
+    return Exam.findById(id)
+}
+
+exports.deleteOne = (_id) => {
+    return Exam.findOneAndDelete({ _id })
+}

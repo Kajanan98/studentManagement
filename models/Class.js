@@ -4,23 +4,26 @@ var Schema = mongoose.Schema;
 
 var ClassSchema = new mongoose.Schema({
     title: {
-        type: String
+        type: String,
+        default: ''
     },
     description: {
-        type: String
+        type: String,
+        default: ''
     },
-    instructor: {
-        type: String
+    classTeacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     },
     students: [{
         userId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Users'
         }
     }],
     teachers: [{
         userId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Users'
         },
         subject: String
@@ -32,30 +35,69 @@ var ClassSchema = new mongoose.Schema({
     }]
 });
 
-var Class =  mongoose.model('Class', ClassSchema);
+var Class = mongoose.model('Class', ClassSchema);
 
-//module.exports =
+exports.listAll = () => {
+    return Class.aggregate([
+        {
+            $lookup: {
+                from: "users",
+                as: '_classTeacher',
+                localField: 'classTeacher',
+                foreignField: '_id'
+            }
+        },
+    ])
+}
 
-exports.createClass = (title, description, instructor, students, teachers, timeTable) => {
-    const classes = new Class({
-        title, description, instructor, students, teachers, timeTable
+exports.initiate = (classTeacher) => {
+    const classObj = new Class({ classTeacher })
+    return classObj.save()
+}
+
+exports.findOne = (id) => {
+    return Class.findById(id)
+}
+
+exports.updateDetails = (_id, title, description, classTeacher) => {
+    return Class.updateOne({ _id }, {
+        $set: { title, description, classTeacher }
     })
-    return classes.save()
 }
 
-exports.findOne = (title) => {
-    return Class.findOne({ title })
-}
-
-exports.updateClass = (title, description, instructor, students, teachers, timeTable) => {
-    return Class.updateOne({ title }, {
-        $set: {  description, instructor, students, teachers, timeTable }
+exports.addStudent = (_id, studentid) => {
+    return Class.updateOne({ _id }, {
+        $push: {
+            students: {
+                userId: studentid
+            }
+        }
     })
 }
 
+exports.removeStudent = (_id, studentid) => {
+    return Class.updateOne({ _id }, {
+        $pull: {
+            students: {
+                userId: studentid
+            }
+        }
+    })
+}
 
+exports.addTeacher = (_id, title, description, classTeacher) => {
+    return Class.updateOne({ _id }, {
+        $set: { title, description, classTeacher }
+    })
+}
 
+exports.findLast = () => {
+    return Class.find().sort('_id').limit(1).then(array => array[0])
+}
 
+exports.deleteOne = (_id) => {
+    return Class.findOneAndDelete({ _id })
+}
 
 
 // Fetch all classes

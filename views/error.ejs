@@ -1,0 +1,28 @@
+<!-- header-section start -->
+<%- include('./partials/_top', {title:"Error", current_menu : {parent, child} }) %>
+<!-- header-section end -->
+
+<!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12" id="accordion">
+                <div class="card card-primary card-outline">
+                    <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                        <div class="card-header">
+                            <h4 class="card-title w-100">
+                                Oops
+                            </h4>
+                        </div>
+                    </a>
+                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                        <div class="card-body">
+                            <%= message %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <%- include('./partials/_bottom') %>

@@ -23,12 +23,68 @@ const menus = [
             {
                 title: 'Add Student',
                 icon: 'fas fa-plus',
-                href: "/users/addTeacher"
+                href: "/users/addStudent"
             },
             {
                 title: 'Add Parent',
                 icon: 'fas fa-plus',
-                href: "/users/addTeacher"
+                href: "/users/addParent"
+            }
+        ]
+    },
+    {
+        title: 'Classes',
+        icon: 'fas fa-chalkboard-teacher',
+        href: "#",
+        children: [
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/classes"
+            },
+            {
+                title: 'TimeTable',
+                icon: 'fas fa-calendar-alt',
+                href: "/classes/timetable"
+            },
+            {
+                title: 'Add Class',
+                icon: 'fas fa-plus',
+                href: "/classes/new"
+            }
+        ]
+    },
+    {
+        title: 'Attendance',
+        icon: 'fas fa-clipboard',
+        href: "#",
+        children: [
+            {
+                title: 'View',
+                icon: 'fas fa-list',
+                href: "/attendance"
+            },
+            {
+                title: 'Take attendance',
+                icon: 'fas fa-calendar-alt',
+                href: "/attendance/add"
+            },
+        ]
+    },
+    {
+        title: 'Exams',
+        icon: 'fas fa-book-open',
+        href: "#",
+        children: [
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/exams"
+            },
+            {
+                title: 'Add Exam',
+                icon: 'fas fa-plus',
+                href: "/exams/new"
             }
         ]
     },
@@ -66,23 +122,6 @@ const menus = [
                 href: "/comments/new"
             },
            
-        ]
-    },
-    {
-        title: 'Supplies',
-        icon: 'fas fa-truck-loading',
-        href: "#",
-        children: [
-            {
-                title: 'View',
-                icon: 'fas fa-eye',
-                href: "/fleet-management/supplies"
-            },
-            {
-                title: 'New Supply',
-                icon: 'fas fa-plus',
-                href: "/fleet-management/supplies/new"
-            }
         ]
     },
     {

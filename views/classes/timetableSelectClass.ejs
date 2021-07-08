@@ -1,11 +1,10 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Users", current_menu : {parent: 'Users', child: 'List'} }) %>
+<%- include('../partials/_top', {title:"TimeTable", current_menu : {parent: 'Classes', child: 'TimeTable'} }) %>
 <!-- header-section end -->
 
-<div class="card card-primary m-3">
+<div class="card">
     <div class="card-header">
-      <h3 class="card-title">Users</h3>
-      <a class="btn btn-primary float-right" href="/fleet-management/vehicles/new">Add new vehicle</a>
+      <h3 class="card-title">Select the class</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -13,11 +12,9 @@
         <thead>
           <tr>
             <th style="width: 40px">#</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Address Number</th>
-            <th>Mobile</th>
-            <th>NIC</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Class Teacher</th>
             <th style="width: 120px" class="text-center">Action</th>
           </tr>
         </thead>
@@ -26,14 +23,11 @@
           <% data.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= row.name %></td>
-              <td><%= row.type %></td>
-              <td><%= row.address %></td>
-              <td><%= row.mobile %></td>
-              <td><%= row.NIC %></td>
+              <td><%= row.title %></td>
+              <td><%= row.description %></td>
+              <td><%= row._classTeacher[0].name %></td>
               <td class="text-center">
-                <a href="/users/editUser/<%= row.username %>"><i class="fas fa-edit"></i></a>
-                <a href="/users/delete/<%= row.id %>"><i class="fas fa-trash-alt"></i></a>
+                <a href="/classes/timetable/<%= row._id %>"><i class="fas fa-arrow-right"></i></a>
               </td>
             </tr>
           <% }) %>

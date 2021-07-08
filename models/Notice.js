@@ -12,4 +12,13 @@ const NoticeSchema = new mongoose.Schema({
     content: String
 })
 
-module.exports = mongoose.model('Notice', NoticeSchema)
+const Notice = mongoose.model('Notice', NoticeSchema)
+
+exports.getAll = () => {
+    return Notice.find()
+}
+
+exports.addNotice = (author, content) => {
+    const notice = new Notice({ author, content });
+    return notice.save()
+}
