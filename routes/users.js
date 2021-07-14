@@ -15,4 +15,6 @@ router.get('/editUser/:id', userController.findOne)
 router.post('/newUser/new', userController.createUser);
 router.post('/editUser/editSubmit/:id', userController.updateUser);
 
+router.post('/registerPrincipal', userController.registerPrincipal);
+
 module.exports = router

@@ -3,7 +3,14 @@ const bcrypt = require('bcrypt');
 const passport = require("passport");
 
 const viewLogin = async (req, res) => {
-    res.render('auth/login');
+    User.getPrincipal()
+        .then(result => {
+            if (result) {
+                res.render('auth/login');
+            } else {
+                res.render('auth/adminSignup');
+            }
+        }).catch(console.log)
 }
 
 const authenticate = async (username, password, done) => {
@@ -53,7 +60,7 @@ const login = passport.authenticate("local", {
 const logout = async (req, res) => {
     req.logout();
     req.flash("logoutMessage", "Logged out successfully!");
-    res.redirect("/users/login");
+    res.redirect("/login");
 }
 
 const viewFaq = async (req, res) => {

@@ -1,6 +1,19 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt')
 
+const registerPrincipal = (req, res) => {
+    const { name, address, mobile_number: mobile, nic: NIC, username, password, cPassword } = req.body;
+    if (password === cPassword) {
+        User.createUser(name, address, mobile, NIC, username, password, 'principal')
+            .then(data => {
+                res.redirect('/login')
+            })
+            .catch(console.log)
+    } else {
+        res.redirect('/login')
+    }
+}
+
 const listAll = (req, res) => {
     User.listAll()
         .then(data => {
@@ -83,6 +96,7 @@ const updateUser = (req, res) => {
 }
 
 module.exports = {
+    registerPrincipal,
     listAll,
     addTeacher,
     addStudent,

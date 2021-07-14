@@ -86,16 +86,6 @@ exports.getTeachers = () => {
     return User.find({ type: 'teacher' })
 }
 
-// exports.markAttendance = (date, students) => {
-//     const bulkOpt = students.map(({ studentId, attendance }) => ({
-//         updateOne: {
-//             "filter": { _id: mongoose.Types.ObjectId(studentId) },
-//             "update": {
-//                 $push: {
-//                     attendance: { date, attendance }
-//                 }
-//             }
-//         }
-//     }))
-//     return User.bulkWrite(bulkOpt)
-// }
+exports.getPrincipal = () => {
+    return User.findOne({ type: 'principal' })
+}

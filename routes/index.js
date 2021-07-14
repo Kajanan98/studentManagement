@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 })
 router.get('/login', authController.viewLogin)
 router.post('/login', authController.login)
-router.post('/logout', authController.logout)
+router.get('/logout', authController.logout)
 
 router.use((req, res, next) => {
     if ((req.isAuthenticated())) {
