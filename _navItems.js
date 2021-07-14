@@ -55,6 +55,28 @@ const menus = [
         ]
     },
     {
+        title: 'TimeTables',
+        icon: 'fas fa-calendar-alt',
+        href: "#",
+        children: [
+            {
+                title: 'View',
+                icon: 'fas fa-calendar-alt',
+                href: "/timetables"
+            },
+            {
+                title: 'List',
+                icon: 'fas fa-list',
+                href: "/timetables/list"
+            },
+            {
+                title: 'Add Timetable',
+                icon: 'fas fa-plus',
+                href: "/timetables/new"
+            },
+        ]
+    },
+    {
         title: 'Attendance',
         icon: 'fas fa-clipboard',
         href: "#",
@@ -63,6 +85,11 @@ const menus = [
                 title: 'View',
                 icon: 'fas fa-list',
                 href: "/attendance"
+            },
+            {
+                title: 'History',
+                icon: 'fas fa-calendar-alt',
+                href: "/attendance/history"
             },
             {
                 title: 'Take attendance',
@@ -85,32 +112,24 @@ const menus = [
                 title: 'Add Exam',
                 icon: 'fas fa-plus',
                 href: "/exams/new"
-            }
-        ]
-    },
-    {
-        title: 'Requests',
-        icon: 'fas fa-file-signature',
-        href: "/fleet-management/requests",
-        children: false
-    },
-    {
-        title: 'Fleet Requests',
-        icon: 'fas fa-envelope-open-text',
-        href: "#",
-        children: [
-            {
-                title: 'View',
-                icon: 'fas fa-eye',
-                href: "/fleet-management/supplies/req"
             },
             {
-                title: 'Request',
+                title: 'Results',
+                icon: 'fas fa-poll',
+                href: "/exams/results"
+            },
+            {
+                title: 'Result List',
+                icon: 'fas fa-list',
+                href: "/exams/resultsList"
+            },
+            {
+                title: 'Add Result',
                 icon: 'fas fa-plus',
-                href: "/fleet-management/supplies/new/req"
-            }
+                href: "/exams/addResult"
+            },
         ]
-    }
+    },
 ];
 
 module.exports = menus;

@@ -1,5 +1,6 @@
 const Exam = require('../models/Exam');
 const Class = require('../models/Class')
+const User = require('../models/User')
 const moment = require('moment')
 
 const listAll = (req, res) => {
@@ -24,25 +25,12 @@ const initiate = async (req, res) => {
     }
 }
 
-const ViewExam = (req, res) => {
-    const { id } = req.params;
-    Exam.findOne(id)
-        .then(result => {
-            res.render('exams/view', {
-                title: 'Edit Exam',
-                data: result,
-                classes
-            })
-        })
-        .catch(console.log)
-}
-
 const viewEidtPage = async (req, res) => {
     const { id } = req.params;
     const classes = await Class.listAll();
     Exam.findOne(id)
         .then(result => {
-            res.render('exams/edit', { data: result, classes })
+            res.render('exams/edit', { data: result, classes, moment })
         })
         .catch(console.log)
 }
@@ -66,11 +54,81 @@ const deleteOne = (req, res) => {
         .catch(console.log);
 }
 
+const resultSelectExam = (req, res) => {
+    Exam.listAll()
+        .then(data => {
+            res.render('exams/selectExam', { data, moment, child: 'Results', link: '/exams/results/' });
+        })
+        .catch(console.log)
+}
+
+const findWithResult = (req, res) => {
+    const { examId } = req.params;
+    Exam.findWithResult(examId)
+        .then(([data]) => {
+            res.render('exams/results', { data, moment })
+        })
+        .catch(console.log)
+}
+
+const addResultSelectExam = (req, res) => {
+    Exam.listAll()
+        .then(data => {
+            res.render('exams/selectExam', { data, moment, child: 'Add Result', link: '/exams/addResult/' });
+        })
+        .catch(console.log)
+}
+
+const initiateResult = async (req, res) => {
+    const { examId } = req.params;
+    const [student] = await User.getStudents();
+    Exam.initiateResult(examId, student._id)
+        .then(({ _id }) => {
+            res.redirect('/exams/resultItem/' + _id);
+        })
+        .catch(console.log)
+}
+
+const viewResultItem = async (req, res) => {
+    const { resId } = req.params;
+    const students = await User.getStudents()
+    Exam.findOneResult(resId)
+        .then(([data]) => {
+            res.render('exams/editResult', { data, moment, students });
+        })
+        .catch(console.log)
+}
+
+const updateResult = (req, res) => {
+    const { resId } = req.params;
+    const { studentId, result } = req.body;
+    Exam.updateResult(resId, studentId, result)
+        .then(({ _id }) => {
+            res.redirect('/exams/resultsList');
+        })
+        .catch(console.log)
+}
+
+const resultsList = (req, res) => {
+    Exam.resultsList()
+        .then((data) => {
+            console.log(data)
+            res.render('exams/resultsList', { data, moment });
+        })
+        .catch(console.log)
+}
+
 module.exports = {
     listAll,
     initiate,
-    ViewExam,
     viewEidtPage,
     update,
-    deleteOne
+    deleteOne,
+    resultSelectExam,
+    findWithResult,
+    addResultSelectExam,
+    initiateResult,
+    viewResultItem,
+    updateResult,
+    resultsList
 }

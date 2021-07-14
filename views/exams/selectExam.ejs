@@ -1,24 +1,23 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"TimeTable", current_menu : {parent: 'Classes', child: 'TimeTable'} }) %>
+<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Exams', child} }) %>
 <!-- header-section end -->
 
-<div class="card">
+<div class="card card-primary m-3">
     <div class="card-header">
-      <h3 class="card-title">Time Table of <%= data.title %></h3>
+      <h3 class="card-title">Exams</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th style="width: 40px">Period</th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thurs</th>
-            <th>Fri</th>
-            <th>Sat</th>
-            <th>Sun</th>
+            <th style="width: 40px">#</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Subject</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th style="width: 120px" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -26,11 +25,13 @@
           <% data.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= row.title %></td>
-              <td><%= row.description %></td>
-              <td><%= row._classTeacher[0].name %></td>
+              <td><%= moment(new Date(row.date)).format("MM-DD-YYYY") %></td>
+              <td><%= moment(new Date(row.date)).format("hh:mm") %></td>
+              <td><%= row.subject %></td>
+              <td><%= row._class[0] ? row._class[0].title : '' %></td>
+              <td><%= row.isFinished ? 'Finished' : 'Not Finished' %></td>
               <td class="text-center">
-                <a href="/classes/timetable/<%= row._id %>"><i class="fas fa-arrow-right"></i></a>
+                <a href="<%= link %><%= row._id %>"><i class="fas fa-arrow-right"></i></a>
               </td>
             </tr>
           <% }) %>

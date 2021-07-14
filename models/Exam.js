@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 const ExamResultSchema = new mongoose.Schema({
     studentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Users',
     },
     result: {
         type: Number,
@@ -68,4 +68,163 @@ exports.findOne = (id) => {
 
 exports.deleteOne = (_id) => {
     return Exam.findOneAndDelete({ _id })
+}
+
+exports.findWithResult = id => {
+    return Exam.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'results.studentId',
+                foreignField: '_id',
+                as: '_students'
+            }
+        },
+        {
+            $addFields: {
+                results: {
+                    $map: {
+                        input: '$results',
+                        as: 'res',
+                        in: {
+                            $mergeObjects: [
+                                {
+                                    $arrayElemAt: [
+                                        { $filter: { input: "$_students", cond: { $eq: ["$$this._id", "$$res.studentId"] } } }
+                                        , 0
+                                    ]
+                                },
+                                "$$res"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $lookup: {
+                from: "classes",
+                localField: 'classId',
+                foreignField: '_id',
+                as: '_class',
+            }
+        },
+    ])
+}
+
+exports.initiateResult = (examId, studentId) => {
+    return Exam.findOneAndUpdate(
+        {
+            _id: mongoose.Types.ObjectId(examId)
+        },
+        {
+            $push: {
+                results: {
+                    studentId
+                }
+            }
+        },
+        {
+            new: true
+        }
+    ).then(doc => {
+        return doc.results[doc.results.length - 1]
+    })
+}
+
+exports.resultsList = () => {
+    return Exam.aggregate([
+        {
+            $unwind: '$results'
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'results.studentId',
+                foreignField: '_id',
+                as: 'students'
+            }
+        },
+        {
+            $addFields: {
+                result: {
+                    $mergeObjects: [
+                        {
+                            $arrayElemAt: [
+                                "$students",
+                                0
+                            ]
+                        },
+                        "$results"
+                    ]
+                }
+            }
+        },
+        {
+            $project: {
+                students: 0,
+                results: 0
+            }
+        },
+        {
+            $lookup: {
+                from: "classes",
+                localField: 'classId',
+                foreignField: '_id',
+                as: 'class',
+            }
+        },
+        {
+            $addFields: {
+                class: {
+                    $arrayElemAt: ["$class", 0]
+                }
+            }
+        }
+    ])
+}
+
+exports.findOneResult = (resultId) => {
+    return Exam.aggregate([
+        {
+            $match: {
+                "results._id": mongoose.Types.ObjectId(resultId)
+            }
+        },
+        {
+            $addFields: {
+                result: {
+                    $arrayElemAt: [
+                        { $filter: { input: "$results", cond: { $eq: ["$$this._id", mongoose.Types.ObjectId(resultId)] } } },
+                        0
+                    ]
+                }
+            }
+        },
+        {
+            $lookup: {
+                from: "classes",
+                localField: 'classId',
+                foreignField: '_id',
+                as: '_class',
+            }
+        },
+    ])
+}
+
+exports.updateResult = (resId, studentId, result) => {
+    return Exam.updateOne(
+        { "results._id": resId },
+        {
+            $set: {
+                "results.$.result": result,
+                "results.$.studentId": studentId
+            }
+        }
+    )
 }

@@ -1,0 +1,69 @@
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Attendance", current_menu : {parent: 'Attendance', child: 'History'} }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+      <h3 class="card-title">Attendance for <%= data.title %></h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <form method="post" action="/attendance/editDate/<%= data.attendances._id %>">
+        <div class="form-group">
+          <label>Date & time:</label>
+          <div class="input-group date" data-target-input="nearest">
+              <input type="text" class="form-control datetimepicker-input" value="<%= moment(data.attendances.date).format('MM/DD/YYYY hh:mm') %>" name="date" id="examdatetime" data-toggle="datetimepicker" data-target="#examdatetime"/>
+              <div class="input-group-append">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Change</button>
+        </div>
+      </form>
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 40px">#</th>
+              <th>Index Number</th>
+              <th>Name</th>
+              <th class="text-center">Attendance</th>
+              <th style="width: 120px" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% var count = 1; %>
+            <% data.attendances.records.forEach( row => { %>
+              <tr data-id="<%= row.id %>">
+                <td><%= count++ %></td>
+                <td><%= row.username %></td>
+                <td><%= row.name %></td>
+                <td class="text-center"><%= row.attendance ? "Present": "Absent" %></td>
+                <td class="text-center">
+                  <a href="/attendance/editRecord/<%= row._id %>/<%= row.attendance ? "false": "true" %>/<%= data.attendances._id %>"><i class="fas fa-exchange-alt"></i> Toggle</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>
+<script src="../../plugins/moment/moment.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script>
+    $(function () {
+        $('#examdatetime').datetimepicker({
+            locale: 'ru'
+        });
+    })
+</script>

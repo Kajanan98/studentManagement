@@ -1,0 +1,73 @@
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Add Exam", current_menu : {parent: 'Exams', child: 'Add Result'} }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+        <h3 class="card-title">Update Exam Result</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <div class="card-body">
+        <h6>Exam Detail</h6>
+        <div class="row">
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Date</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= moment(data.date).format("MM/DD/YYYY hh:mm") %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Class</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= data._class[0].title %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Subject</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= data.subject %></span>
+                </div>
+              </div>
+            </div>
+        </div>
+        <form method="post" action="<%='/exams/resultItem/'+data.result._id %>">
+            <div class="form-group row">
+                <label for="students" class="col-sm-2 col-form-label">Student</label>
+                <select class="form-control col-sm-3" id="students" name="studentId">
+                    <% students.forEach(function(user){%>
+                        <option value="<%= user._id %>" <%= user._id.toString()==data.result.studentId.toString()? "selected" : "" %>><%= user.name %> - <%= user.username %></option>
+                    <%})%>
+                </select>
+                <label for="result" class="col-sm-2 col-form-label">Result</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="result" name="result" value="<%= data.result.result %>" placeholder="Result">
+                </div>
+                <button type="submit" class="btn btn-primary col-sm-2">Update</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>
+<script src="../../plugins/moment/moment.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script>
+    $(function () {
+        $('#examdatetime').datetimepicker({
+            locale: 'ru'
+        });
+    })
+</script>

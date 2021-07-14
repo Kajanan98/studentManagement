@@ -1,39 +1,59 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Exams', child: 'List'} }) %>
+<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Exams', child: 'Results'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
     <div class="card-header">
-      <h3 class="card-title">Exams</h3>
+      <h3 class="card-title">Exam Results</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+      <h6>Exam Detail</h6>
+        <div class="row">
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Date</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= moment(data.date).format("MM/DD/YYYY hh:mm") %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Class</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= data._class[0].title %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Subject</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= data.subject %></span>
+                </div>
+              </div>
+            </div>
+      </div>
+
+      <h6>Results</h6>
       <table id="example1" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th style="width: 40px">#</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Subject</th>
-            <th>Class</th>
-            <th>Status</th>
-            <th style="width: 120px" class="text-center">Action</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <% var count = 1; %>
-          <% data.forEach( row => { %>
+          <% data.results.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= moment(new Date(row.date)).format("MM-DD-YYYY") %></td>
-              <td><%= moment(new Date(row.date)).format("hh:mm") %></td>
-              <td><%= row.subject %></td>
-              <td><%= row._class[0] ? row._class[0].title : '' %></td>
-              <td><%= row.isFinished ? 'Finished' : 'Not Finished' %></td>
-              <td class="text-center">
-                <a href="/exams/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
-                <a href="/exams/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>
-              </td>
+              <td><%= row.name %></td>
+              <td><%= row.username %></td>
+              <td><%= row.result %></td>
             </tr>
           <% }) %>
         </tbody>

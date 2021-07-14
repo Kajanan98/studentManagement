@@ -1,10 +1,10 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Exams', child: 'List'} }) %>
+<%- include('../partials/_top', {title:"Attendance", current_menu : {parent: 'Attendance', child: 'History'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
     <div class="card-header">
-      <h3 class="card-title">Exams</h3>
+      <h3 class="card-title">Attendance Log</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -13,26 +13,24 @@
           <tr>
             <th style="width: 40px">#</th>
             <th>Date</th>
-            <th>Time</th>
-            <th>Subject</th>
-            <th>Class</th>
-            <th>Status</th>
+            <th>Total</th>
+            <th>Attendeces</th>
+            <th>Percentange</th>
             <th style="width: 120px" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <% var count = 1; %>
-          <% data.forEach( row => { %>
+          <% data.attendanceDetails.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= moment(new Date(row.date)).format("MM-DD-YYYY") %></td>
-              <td><%= moment(new Date(row.date)).format("hh:mm") %></td>
-              <td><%= row.subject %></td>
-              <td><%= row._class[0] ? row._class[0].title : '' %></td>
-              <td><%= row.isFinished ? 'Finished' : 'Not Finished' %></td>
+              <td><%= moment(row.date).format("MM/DD/YYYY hh:mm") %></td>
+              <td><%= row.total %></td>
+              <td><%= row.attendeces %></td>
+              <td><%= ( (row.attendeces / row.total ) * 100 ).toString().slice(0, 5) %> %</td>
               <td class="text-center">
-                <a href="/exams/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
-                <a href="/exams/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>
+                <a href="/attendance/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
+                <a href="/attendance/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>
               </td>
             </tr>
           <% }) %>

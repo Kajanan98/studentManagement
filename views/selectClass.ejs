@@ -1,5 +1,5 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Exams', child: 'List'} }) %>
+<%- include('./partials/_top', {title:"Exams", current_menu : {parent, child } }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
@@ -15,7 +15,7 @@
             <tr data-id="<%= row.id %>">
                 <td style="width: 40px"><%= count++ %></td>
                 <td>
-                    <a href="/attendance/take/<%= row._id %>">
+                    <a href="<%=link + row._id + ((typeof(linkPostfix)!=="undefined")?linkPostfix:'') %>">
                         <%= row.title %>
                     </a>
                 </td>
@@ -28,4 +28,4 @@
 </div>
 <!-- /.card -->
 
-<%- include('../partials/_bottom') %>
+<%- include('./partials/_bottom') %>

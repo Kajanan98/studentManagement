@@ -16,7 +16,8 @@
             <th>Time</th>
             <th>Subject</th>
             <th>Class</th>
-            <th>Status</th>
+            <th>Student</th>
+            <th>Result</th>
             <th style="width: 120px" class="text-center">Action</th>
           </tr>
         </thead>
@@ -28,11 +29,12 @@
               <td><%= moment(new Date(row.date)).format("MM-DD-YYYY") %></td>
               <td><%= moment(new Date(row.date)).format("hh:mm") %></td>
               <td><%= row.subject %></td>
-              <td><%= row._class[0] ? row._class[0].title : '' %></td>
-              <td><%= row.isFinished ? 'Finished' : 'Not Finished' %></td>
+              <td><%= row.class.title %></td>
+              <td><%= row.result.name %></td>
+              <td><%= row.result.result %></td>
               <td class="text-center">
-                <a href="/exams/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
-                <a href="/exams/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>
+                <a href="/exams/resultItem/<%= row.result._id %>"><i class="fas fa-edit"></i></a>
+                <a href="/exams/delete/resultItem/<%= row.result._id %>"><i class="fas fa-trash-alt"></i></a>
               </td>
             </tr>
           <% }) %>

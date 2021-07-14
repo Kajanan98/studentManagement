@@ -1,16 +1,5 @@
 const mongoose = require('mongoose')
 
-const AttendanceSchema = new mongoose.Schema({
-    date: {
-        type: Date,
-        default: Date.now
-    },
-    attendance: {
-        type: Boolean,
-        default: false
-    }
-})
-
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -41,7 +30,6 @@ const UserSchema = new mongoose.Schema({
         enum: ['principal', 'teacher', 'student', 'parent'],
         default: 'student'
     },
-    attendance: [AttendanceSchema]
     // joinedDate:{
     //     type:Date,
     //     required:true
@@ -98,3 +86,16 @@ exports.getTeachers = () => {
     return User.find({ type: 'teacher' })
 }
 
+// exports.markAttendance = (date, students) => {
+//     const bulkOpt = students.map(({ studentId, attendance }) => ({
+//         updateOne: {
+//             "filter": { _id: mongoose.Types.ObjectId(studentId) },
+//             "update": {
+//                 $push: {
+//                     attendance: { date, attendance }
+//                 }
+//             }
+//         }
+//     }))
+//     return User.bulkWrite(bulkOpt)
+// }

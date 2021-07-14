@@ -64,24 +64,6 @@ const removeStudent = (req, res) => {
         .catch(console.log)
 }
 
-const timetableSelectClass = (req, res) => {
-    Class.listAll()
-        .then(result => {
-            res.render('classes/timetableSelectClass', { data: result });
-        })
-        .catch(console.log)
-}
-
-const viewTimeTable = (req, res) => {
-    const { classId } = req.params;
-    Class.findOne(classId)
-        .then(result => {
-            res.render('classes/timetable', { data: result });
-        })
-        .catch(console.log)
-}
-
-
 const deleteOne = (req, res) => {
     const { id } = req.params;
     Class.deleteOne(id)
@@ -98,7 +80,5 @@ module.exports = {
     viewEidtPage,
     addStudent,
     removeStudent,
-    timetableSelectClass,
-    viewTimeTable,
     deleteOne
 }

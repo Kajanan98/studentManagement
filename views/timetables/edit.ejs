@@ -1,0 +1,41 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Timetable", current_menu : {parent: 'TimeTables', child: 'Add Timetable'} }) %>
+<!-- header-section end -->
+
+
+<!-- details start -->
+<form method="post" action="<%='/timetables/'+data.timeTable._id %>">
+    <div class="card card-primary m-3">
+        <div class="card-header">
+            <h3 class="card-title">Manage Timetable</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="form-group">
+                <label for="title">Period</label>
+                <input type="number" class="form-control" id="title" name="period" placeholder="Enter period" value="<%=data.timeTable.period%>" required>
+            </div>
+            <div class="form-group">
+                <label for="classTeacher">Class Teacher</label>
+                <select class="form-control" id="classTeacher" name="teacher" >
+                    <% teachers.forEach(function(teacher){%>
+                        <option value="<%= teacher._id %>" <%= (data.timeTable.teacher.toString()===teacher._id.toString())?'selected':'' %>><%= teacher.name %> - <%= teacher.username %></option>
+                    <%})%>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Subject</label>
+                <input type="text" class="form-control" id="description" name="subject" placeholder="Enter subject" value="<%= data.timeTable.subject %>">
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+    <!-- /.card -->
+</form>
+<!-- /details end -->
+
+<%- include('../partials/_bottom') %>
