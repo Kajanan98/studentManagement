@@ -8,7 +8,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form method="post" action="<%=(data == false ) ? '/users/newUser/new' : '/users/editUser/editSubmit/'+data.username %>">
+    <form method="post" action="<%=(data == false ) ? '/users/newUser/new' : '/users/editUser/editSubmit/'+data._id %>">
     <div class="card-body">
         <div class="form-group">
             <label for="name">Name</label>
@@ -36,7 +36,7 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="<%= data !== false ? data.password : '' %>">
         </div>
-        <% if (userType) { %>
+        <% if (data.userType) { %>
             <input type="hidden" name="type" value="<%= userType %>">
         <% } else { %>
             <div class="form-group">
@@ -71,7 +71,7 @@
 
     <div class="card-footer">
         <% if(data!=false){ %>
-            <input type="hidden" name="username" value="<%= data.username %>">
+            <input type="hidden" name="id" value="<%= data._id %>">
         <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

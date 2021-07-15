@@ -63,10 +63,10 @@ const createUser = async (req, res) => {
 
 const findOne = (req, res) => {
     const id = req.params.id;
-    User.findOne(id)
+    User.getUserByID(id)
         .then(result => {
             console.log(result);
-            res.render('admin/newUser', {
+            res.render('users/newUser', {
                 title: 'Edit User',
                 data: result
             })
@@ -74,34 +74,34 @@ const findOne = (req, res) => {
         .catch(console.log)
 }
 
-const getUsers = (req, res) => {
-    User.getUsers()
-        .then((result) => {
-            res.render('admin/newClass', {
-                title: 'Add New Class',
-                data: false,
-                users: result,
-                teachers: [],
-                days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                periods: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+// const getUsers = (req, res) => {
+//     User.getUsers()
+//         .then((result) => {
+//             res.render('admin/newClass', {
+//                 title: 'Add New Class',
+//                 data: false,
+//                 users: result,
+//                 teachers: [],
+//                 days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+//                 periods: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
 
-            })
-        })
-        .catch(console.log);
-}
+//             })
+//         })
+//         .catch(console.log);
+// }
 
 const updateUser = (req, res) => {
-    const username = req.body.username;
+    const id = req.body.id;
     const name = req.body.name;
     const address = req.body.address;
     const mobile = req.body.mobile_number;
     const NIC = req.body.nic;
     const password = req.body.password;
     const type = req.body.type;
-    User.updateUser(username, name, address, mobile, NIC, password, type)
+    User.updateUser(id, name, address, mobile, NIC, password, type)
         .then(result => {
-            console.log('s');
-            res.send(result)
+            
+            res.redirect('/users/manage')
         })
         .catch(console.log);
 }
@@ -111,7 +111,7 @@ const getProfile = (req, res) => {
     var id = req.user._id;
     var user_name = req.user.username
 
-    User.findOne(user_name)
+    User.getUserByID(id)
         .then(async result => {
             const notices = await User.findNotices(id);
             const comments = await User.findComments(id);
@@ -132,15 +132,15 @@ const deleteOne = (req, res) => {
     const { id } = req.params;
     User.deleteOne(id)
         .then(result => {
-            res.redirect('/users')
+            res.redirect('/users/manage')
         })
         .catch(console.log);
 }
 
 const editProfilePage = (req, res) => {
-    // const username = req.user.username;
-    const username = '123';
-    User.findOne(username)
+    const id = req.user._id;
+    
+    User.getUserByID(id)
         .then(result => {
             res.render('profile/edit', {
                 data: result,
@@ -156,10 +156,10 @@ const updateProfile = (req, res) => {
     const mobile = req.body.mobile_number;
     const NIC = req.body.nic;
 
-    // const username = req.user.username;
-    const username = '123';
+    const id = req.user._id;
+    //const username = '123';
 
-    User.updateUser(username, name, address, mobile, NIC)
+    User.updateUser(id, name, address, mobile, NIC)
         .then(result => {
             res.redirect('/users/profile/')
         })
@@ -189,7 +189,7 @@ module.exports = {
     createUser,
     findOne,
     updateUser,
-    getUsers,
+    // getUsers,
     getProfile,
     deleteOne,
     editProfilePage,

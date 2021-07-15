@@ -82,12 +82,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% if(data.attendance) {%> 
                   <% data.attendance.forEach( row => { %>
                     <tr data-id="<%= row.id %>">
                       <td><%= row.date %></td>
                       <td><%= row.attendance %></td>
                     </tr>
                   <% }) %>
+                  <% } %> 
                 </tbody>
               </table>
             </div>
@@ -112,6 +114,7 @@
                 </tr>
               </thead>
               <tbody>
+                <% if(data.attendance) {%> 
                 <% data.attendance.forEach( row => { %>
                   <tr data-id="<%= row.id %>">
                     <td><%= row.date %></td>
@@ -119,6 +122,7 @@
                     <td><%= row.attendance %></td>
                   </tr>
                 <% }) %>
+                <% } %> 
               </tbody>
             </table>
           </div>
