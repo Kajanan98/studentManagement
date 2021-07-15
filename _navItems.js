@@ -16,6 +16,11 @@ const menus = [
                 href: "/users"
             },
             {
+                title: 'Manage',
+                icon: 'fas fa-user-cog',
+                href: "/users/manage"
+            },
+            {
                 title: 'Add Teacher',
                 icon: 'fas fa-plus',
                 href: "/users/addTeacher"

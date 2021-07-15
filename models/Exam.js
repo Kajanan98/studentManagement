@@ -228,3 +228,34 @@ exports.updateResult = (resId, studentId, result) => {
         }
     )
 }
+
+exports.findForStudent = studentId => {
+    return Exam.aggregate([
+        {
+            $match: {
+                "results.studentId": mongoose.Types.ObjectId(studentId)
+            }
+        },
+        {
+            $lookup: {
+                from: "classes",
+                localField: 'classId',
+                foreignField: '_id',
+                as: 'class',
+            }
+        },
+        {
+            $addFields: {
+                class: {
+                    $arrayElemAt: ["$class", 0]
+                },
+                results: {
+                    $arrayElemAt: [
+                        { $filter: { input: "$results", cond: { $eq: ["$$this.studentId", mongoose.Types.ObjectId(studentId)] } } }
+                        , 0
+                    ]
+                }
+            }
+        }
+    ])
+}

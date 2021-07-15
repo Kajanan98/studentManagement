@@ -1,5 +1,8 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt')
+const Exam = require('../models/Exam')
+const Class = require('../models/Class')
+const bcrypt = require('bcrypt');
+const moment = require('moment')
 
 const registerPrincipal = (req, res) => {
     const { name, address, mobile_number: mobile, nic: NIC, username, password, cPassword } = req.body;
@@ -14,10 +17,18 @@ const registerPrincipal = (req, res) => {
     }
 }
 
-const listAll = (req, res) => {
+const listAll = async (req, res) => {
+    const principal = await User.getPrincipal();
+    const teachers = await User.getTeachers()
+    const students = await User.getStudents();
+    const parents = await User.getParents()
+    res.render('users', { principal, teachers, students, parents })
+}
+
+const manage = (req, res) => {
     User.listAll()
         .then(data => {
-            res.render('users', { data })
+            res.render('users/manage', { data })
         })
         .catch(console.log)
 }
@@ -155,9 +166,23 @@ const updateProfile = (req, res) => {
         .catch(console.log);
 }
 
+const viewStudent = (req, res) => {
+    const { studentId } = req.params;
+    User.getUserByID(studentId)
+        .then(async data => {
+            const exams = await Exam.findForStudent(studentId)
+            const attendances = await Class.attendanceForStudent(studentId)
+            console.log(attendances)
+            data.initials = data.name.split(" ").map((n) => n[0]).join("");;
+            res.render('users/viewStudent', { data, exams, attendances, moment })
+        })
+        .catch(console.log);
+}
+
 module.exports = {
     registerPrincipal,
     listAll,
+    manage,
     addTeacher,
     addStudent,
     addParent,
@@ -168,5 +193,6 @@ module.exports = {
     getProfile,
     deleteOne,
     editProfilePage,
-    updateProfile
+    updateProfile,
+    viewStudent
 }

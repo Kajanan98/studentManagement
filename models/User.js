@@ -90,6 +90,10 @@ exports.getPrincipal = () => {
     return User.findOne({ type: 'principal' })
 }
 
+exports.getParents = () => {
+    return User.find({ type: 'parent' })
+}
+
 exports.deleteOne = (_id) => {
     return User.findOneAndDelete({ _id })
 }

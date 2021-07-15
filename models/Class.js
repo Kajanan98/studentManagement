@@ -287,42 +287,10 @@ exports.getSummary = classId => {
     ])
 }
 
-exports.viewAttendance2 = classId => {
+exports.attendanceForStudent = studentId => {
     return Class.aggregate([
         {
-            $match: { _id: mongoose.Types.ObjectId(classId) }
-        },
-        {
-            $addFields: {
-                students: {
-                    $reduce: {
-                        input: "$attendances",
-                        initialValue: [],
-                        in: { $setUnion: ["$$value", "$$this.records.studentId"] }
-                    }
-                }
-            }
-        },
-        {
-            $lookup: {
-                from: "users",
-                as: 'students',
-                localField: 'attendances.records.studentId',
-                foreignField: '_id'
-            }
-        },
-        {
-            $addFields: {
-                _attendances: {
-                    $map: {
-                        input: "$_attendances",
-                        in: {
-                            _id: "$$this._id",
-                            name: "$$this.name"
-                        }
-                    }
-                }
-            }
+            $match: { "attendances.records.studentId": mongoose.Types.ObjectId(studentId) }
         },
         {
             $project: {
@@ -334,24 +302,15 @@ exports.viewAttendance2 = classId => {
                         as: "a",
                         in: {
                             $mergeObjects: [
-                                "$$a",
                                 {
-                                    records: {
-                                        $map: {
-                                            input: "$$a.records",
-                                            as: "r",
-                                            in: {
-                                                attendance: "$$r.attendance",
-                                                _id: "$$r._id",
-                                                student: {
-                                                    $arrayElemAt: [
-                                                        { $filter: { input: "$students", cond: { $eq: ["$$this._id", "$$r.studentId"] } } }
-                                                        , 0
-                                                    ]
-                                                }
-                                            }
-                                        }
-                                    }
+                                    _id: "$$a._id",
+                                    date: "$$a.date"
+                                },
+                                {
+                                    $arrayElemAt: [
+                                        { $filter: { input: "$$a.records", cond: { $eq: ["$$this.studentId", mongoose.Types.ObjectId(studentId)] } } }
+                                        , 0
+                                    ]
                                 }
                             ]
                         }
@@ -359,6 +318,17 @@ exports.viewAttendance2 = classId => {
                 }
             }
         },
+        {
+            $unwind: "$attendances"
+        },
+        {
+            $replaceRoot: { newRoot: { $mergeObjects: ["$$ROOT", "$attendances"] } }
+        },
+        {
+            $project: {
+                attendances: 0
+            }
+        }
     ])
 }
 
