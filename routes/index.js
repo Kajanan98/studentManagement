@@ -25,7 +25,7 @@ router.use((req, res, next) => {
 router.get('/dashboard', (req, res) => {
     res.render('dashboard')
 })
-router.use('/admin', require('./admin'))
+// router.use('/admin', require('./admin'))
 router.use('/users', require('./users'))
 router.use('/classes', require('./classes'))
 router.use('/timetables', require('./timetables'))
