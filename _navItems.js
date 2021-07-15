@@ -6,6 +6,25 @@ const menus = [
         children: false
     },
     {
+
+        title: 'Profile',
+        icon: 'fas fa-user',
+        href: "#",
+        children: [
+            {
+                title: 'View Profile',
+                icon: 'fas fa-list',
+                href: "/users/profile"
+            },
+            {
+                title: 'Edit Profile',
+                icon: 'fas fa-edit',
+                href: "/users/profile/edit"
+            },
+
+        ]
+    },
+    {
         title: 'Users',
         icon: 'fas fa-users',
         href: "#",
