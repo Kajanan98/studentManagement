@@ -3,6 +3,7 @@ const router = express.Router()
 const examController = require('../controllers/examController')
 
 router.get('/', examController.listAll)
+router.get('/manage', examController.manage)
 router.get('/new', examController.initiate)
 router.get('/edit/:id', examController.viewEidtPage)
 router.post('/edit/:id', examController.update)

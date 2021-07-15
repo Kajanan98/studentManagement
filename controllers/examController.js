@@ -6,7 +6,16 @@ const moment = require('moment')
 const listAll = (req, res) => {
     Exam.listAll()
         .then(result => {
-            res.render('exams', { data: result, moment });
+            const events = result.map(resu => ({ title: resu.subject, start: resu.date, allday: false, backgroundColor: '#0073b7', borderColor: '#0073b7' }))
+            res.render('exams', { data: result, moment, events });
+        })
+        .catch(console.log)
+}
+
+const manage = (req, res) => {
+    Exam.listAll()
+        .then(result => {
+            res.render('exams/manage', { data: result, moment });
         })
         .catch(console.log)
 }
@@ -119,6 +128,7 @@ const resultsList = (req, res) => {
 
 module.exports = {
     listAll,
+    manage,
     initiate,
     viewEidtPage,
     update,

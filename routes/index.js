@@ -31,7 +31,6 @@ router.use('/classes', require('./classes'))
 router.use('/timetables', require('./timetables'))
 router.use('/attendance', require('./attendance'))
 router.use('/exams', require('./exams'))
-router.use('/teacher', require('./teacher'))
 router.use('/notices', require('./notices'))
 router.use('/comments', require('./comment'))
 
