@@ -1,5 +1,15 @@
 <%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
 
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Notices</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
 <div class="card-columns">
     <% data.forEach(function(datas){%>
     <div class="card p-3">
@@ -18,8 +28,8 @@
             </small>
           </footer>
         <div class="card-footer text-right">
-            <a href="#"><small ><i class="fa fa-trash" aria-hidden="true"></i></small></a>&nbsp&nbsp&nbsp
-            <a href="/notices/editNotice/editSubmit"><small ><i class="fa fa-edit" aria-hidden="true"></i></small></a>
+            <a href="/notices/delete/<%= datas._id %>"><small ><i class="fa fa-trash" aria-hidden="true"></i></small></a>&nbsp&nbsp&nbsp
+            <a href="/notices/editSubmit/<%= datas._id %>"><small ><i class="fa fa-edit" aria-hidden="true"></i></small></a>
         </div>
       </blockquote>
     </div>
@@ -37,7 +47,7 @@
       </li>
     <% } else { %>
       <li class="page-item ">
-        <a class="page-link" href="/admin/viewNotice/1" >First</a>
+        <a class="page-link" href="/notices/1" >First</a>
       </li>
     <% } %>
     <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
@@ -50,7 +60,7 @@
       <% if (i == current) { %>
           <li class=" page-item active"><a class="page-link"><%= i %></a></li>
       <% } else { %>
-          <li class="page-item"><a class="page-link" href="/admin/viewNotice/<%= i %>"><%= i %></a></li>
+          <li class="page-item"><a class="page-link" href="/notices/<%= i %>"><%= i %></a></li>
       <% } %>
       <% if (i == Number(current) + 4 && i < pages) { %>
           <li  class="page-item disabled" ><a class="page-link">...</a></li>
@@ -59,7 +69,7 @@
       <% if (current == pages) { %>
         <li  class="page-item disabled"><a class="page-link">Last</a></li>
       <% } else { %>
-        <li class="page-item"><a class="page-link" href="/admin/viewNotice/<%= pages %>">Last</a></li>
+        <li class="page-item"><a class="page-link" href="/notices/<%= pages %>">Last</a></li>
       <% } %>
     
   </ul>

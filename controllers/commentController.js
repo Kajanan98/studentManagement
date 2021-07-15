@@ -1,28 +1,71 @@
-const Comment = require('../models/Comment')
+const Comment = require('../models/Comment');
 
-const newcomment = (req, res) => {
-    res.render('comments/newComment', {
-        title: 'Add Notice',
-        data: false
-    })
-}
-
-const viewComment = (req, res) => {
+const getAll = (req, res) => {
     var perPage = 6
     var page = req.params.page || 1
-    Notice = [{ date: '2021-97-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-017-08', content: 'jwefwhefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-07-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-07-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-07-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-07-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }, { date: '2021-07-08', content: 'jwef wjehgfwhefgh whfgwhf whefvgwefh whefvgywef wfgvwyefv', author: 'sjg' }],
-        count = Notice.length;
-    res.render('comments/viewComment', {
-        title: 'View Notice',
-        current: page,
-        data: Notice.slice((perPage * page) - perPage, (perPage * page)),
-        pages: Math.ceil(count / perPage)
-    })
 
+    Comment.getAll()
+        .then(comment => {
+            count = comment.length
+            res.render('comments/viewComment', {
+                title: 'View Comments',
+                current: page,
+                data: comment.slice((perPage * page) - perPage, (perPage * page)),
+                pages: Math.ceil(count / perPage)
 
+            })
+        })
+        .catch(console.log)
 }
 
+const addComment = (req, res) => {
+    const author = req.body.author;
+    const content = req.body.content;
+    Comment.addComment(author, content)
+        .then((result) => {
+            console.log(result);
+            res.redirect('/comments/1')
+        })
+        .catch(console.log())
+}
+
+const updateComment = (req, res) => {
+    const { id } = req.params;
+    const { content } = req.body;
+    Comment.updateComment(id, content)
+        .then(result => {
+            res.redirect('/Comments/1')
+        })
+        .catch(console.log);
+}
+
+const viewEidtPage = async (req, res) => {
+    const { id } = req.params;
+    Comment.findOne(id)
+        .then(result => {
+            res.render('Comments/newComment', {
+                title: "Edit Comment",
+                data: result,
+            })
+        })
+        .catch(console.log)
+}
+
+const deleteOne = (req, res) => {
+    const { id } = req.params;
+    Comment.deleteOne(id)
+        .then(result => {
+            res.redirect('/Comments/1')
+        })
+        .catch(console.log);
+}
+
+
 module.exports = {
-    newcomment,
-    viewComment
+    getAll,
+    addComment,
+    updateComment,
+    viewEidtPage,
+    deleteOne,
+
 }

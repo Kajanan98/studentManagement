@@ -95,6 +95,66 @@ const updateUser = (req, res) => {
         .catch(console.log);
 }
 
+const getProfile = (req, res) => {
+    // var user_name = '123'
+    var id = req.user._id;
+    var user_name = req.user.username
+
+    User.findOne(user_name)
+        .then(async result => {
+            const notices = await User.findNotices(id);
+            const comments = await User.findComments(id);
+            res.render('profile/index', {
+                // data: result
+
+                data: result,
+                notices: notices[0]._notice,
+                comments: comments[0]._comment,
+                moment,
+
+            })
+        })
+        .catch(console.log)
+}
+
+const deleteOne = (req, res) => {
+    const { id } = req.params;
+    User.deleteOne(id)
+        .then(result => {
+            res.redirect('/users')
+        })
+        .catch(console.log);
+}
+
+const editProfilePage = (req, res) => {
+    // const username = req.user.username;
+    const username = '123';
+    User.findOne(username)
+        .then(result => {
+            res.render('profile/edit', {
+                data: result,
+                title: 'Edit profile'
+            })
+        })
+        .catch(console.log);
+}
+
+const updateProfile = (req, res) => {
+    const name = req.body.name;
+    const address = req.body.address;
+    const mobile = req.body.mobile_number;
+    const NIC = req.body.nic;
+
+    // const username = req.user.username;
+    const username = '123';
+
+    User.updateUser(username, name, address, mobile, NIC)
+        .then(result => {
+            res.redirect('/users/profile/')
+        })
+        .catch(console.log);
+}
+
 module.exports = {
     registerPrincipal,
     listAll,
@@ -104,5 +164,9 @@ module.exports = {
     createUser,
     findOne,
     updateUser,
-    getUsers
+    getUsers,
+    getProfile,
+    deleteOne,
+    editProfilePage,
+    updateProfile
 }
