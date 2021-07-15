@@ -9,6 +9,7 @@ const getAll = (req, res) => {
             count = comment.length
             res.render('comments/viewComment', {
                 title: 'View Comments',
+                title1:'Add Comment',
                 current: page,
                 data: comment.slice((perPage * page) - perPage, (perPage * page)),
                 pages: Math.ceil(count / perPage)
@@ -19,7 +20,7 @@ const getAll = (req, res) => {
 }
 
 const addComment = (req, res) => {
-    const author = req.body.author;
+    const author = req.user._id;
     const content = req.body.content;
     Comment.addComment(author, content)
         .then((result) => {
@@ -34,7 +35,7 @@ const updateComment = (req, res) => {
     const { content } = req.body;
     Comment.updateComment(id, content)
         .then(result => {
-            res.redirect('/Comments/1')
+            res.redirect('/users/profile')
         })
         .catch(console.log);
 }
@@ -55,7 +56,7 @@ const deleteOne = (req, res) => {
     const { id } = req.params;
     Comment.deleteOne(id)
         .then(result => {
-            res.redirect('/Comments/1')
+            res.redirect('/users/profile')
         })
         .catch(console.log);
 }

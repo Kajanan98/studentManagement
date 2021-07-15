@@ -1,31 +1,43 @@
 <%- include('../partials/_top', { current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
-
 <section class="content">
   <div class="container-fluid">
+    <div class="card card-primary m-3">
+      <div class="card-header">
+          <h3 class="card-title"><%= title1 %></h3>
+      </div>
+      <form method="post" action="/comments/1">
+      <div class="card-body">
+          <div class="form-group">
+              <label for="content">Content</label>
+              <textarea type="text" class="form-control" rows='8' id="content" name="content"></textarea>
+          </div>
+      </div>
+      <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+    </div>
+
+    <hr>
     <div class="card-columns">
-        <% data.forEach(function(datas){%>
-        <div class="card p-3">
-          <blockquote class="blockquote mb-0 card-body">
-            <p><%= datas.content %></p>
-            <footer class="blockquote-footer">
-              <small class="text-muted">
-                <%= datas.author %> 
-                
-              </small>
-            </footer>
-            <footer class="blockquote-footer">
-                <small class="text-muted">
-                    <%= datas.date %>
-                  
-                </small>
-              </footer>
-            <div class="card-footer text-right">
-                <a href="/comments/delete/<%= datas._id %>"><small ><i class="fa fa-trash" aria-hidden="true"></i></small></a>&nbsp&nbsp&nbsp
-                <a href="/comments/editSubmit/<%= datas._id %> "><small ><i class="fa fa-edit" aria-hidden="true"></i></small></a>
-            </div>
-          </blockquote>
-        </div>
-        <% }) %> 
+    <% data.forEach(function(datas){%>
+    <div class="card p-3">
+      <blockquote class="blockquote mb-0 card-body">
+        <p><%= datas.content %></p>
+        <footer class="blockquote-footer">
+          <small class="text-muted">
+            <%= datas.author %> 
+            
+          </small>
+        </footer>
+        <footer class="blockquote-footer">
+            <small class="text-muted">
+                <%= datas.date %>
+              
+            </small>
+          </footer>
+        
+      </blockquote>
     </div>
 
 
