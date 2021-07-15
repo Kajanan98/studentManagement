@@ -16,8 +16,6 @@ router.post('/newUser/new', userController.createUser);
 router.post('/editUser/editSubmit/:id', userController.updateUser);
 router.get('/delete/:id', userController.deleteOne)
 
-router.post('/registerPrincipal', userController.registerPrincipal);
-
 router.get('/profile/', userController.getProfile)
 router.get('/profile/edit', userController.editProfilePage)
 router.post('/profile/editSubmit', userController.updateProfile)

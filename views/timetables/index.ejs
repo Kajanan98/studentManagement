@@ -4,14 +4,14 @@
 
 <div class="card card-primary m-3">
     <div class="card-header">
-      <h3 class="card-title">Time Table of <%= data.title %></h3>
+      <h3 class="card-title">Time Table </h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th style="width: 40px">Period</th>
+            <th style="width: 40px"></th>
             <th>Mon</th>
             <th>Tue</th>
             <th>Wed</th>
@@ -22,10 +22,9 @@
           </tr>
         </thead>
         <tbody>
-          <% var count = 1; %>
           <% data.forEach( row => { %>
             <tr data-id="<%= row.id %>">
-              <td><%= count++ %></td>
+              <td><%= row.period %></td>
               <td><%= row.title %></td>
               <td><%= row.description %></td>
               <td><%= row %></td>
@@ -53,20 +52,15 @@
           <tr>
             <th style="width: 40px">Period</th>
             <th>Teacher</th>
-            <th>Subject / Lession</th>
-            <th></th>
+            <th>Subject / Lesson</th>
           </tr>
         </thead>
         <tbody>
-          <% var count = 1; %>
           <% classEle.timeTable.forEach( row => { %>
             <tr data-id="<%= row.id %>">
-              <td><%= count++ %></td>
+              <td><%= row.period %></td>
               <td><%= row.teacherInfo.name %></td>
               <td><%= row.subject %></td>
-              <td class="text-center">
-                <a href="/classes/timetable/<%= row._id %>"><i class="fas fa-arrow-right"></i></a>
-              </td>
             </tr>
           <% }) %>
         </tbody>

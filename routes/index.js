@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 router.get('/login', authController.viewLogin)
 router.post('/login', authController.login)
 router.get('/logout', authController.logout)
+router.post('/registerPrincipal', authController.registerPrincipal)
 
 router.use((req, res, next) => {
     if ((req.isAuthenticated())) {
@@ -17,10 +18,7 @@ router.use((req, res, next) => {
         res.locals.url = req.originalUrl;
         next();
     } else {
-        res.locals.type = 6;
-        res.locals.name = '';
-        res.locals.url = req.originalUrl;
-        next();
+        res.redirect('/login')
     }
 });
 

@@ -67,10 +67,27 @@ const viewFaq = async (req, res) => {
     res.render('faq');
 }
 
+const registerPrincipal = async (req, res) => {
+    const { name, address, mobile_number: mobile, nic: NIC, username, password, cPassword } = req.body;
+    if (password === cPassword) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        User.createUser(name, address, mobile, NIC, username, hashedPassword, 'principal')
+            .then(data => {
+                res.redirect('/login')
+            })
+            .catch(console.log)
+    } else {
+        req.flash("adminRegister", "Password mismatch!");
+        console.log('Mismatch')
+        res.redirect('/login')
+    }
+}
+
 module.exports = {
     viewLogin,
     authenticate,
     login,
     logout,
     viewFaq,
+    registerPrincipal
 }

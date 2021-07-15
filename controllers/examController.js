@@ -112,7 +112,6 @@ const updateResult = (req, res) => {
 const resultsList = (req, res) => {
     Exam.resultsList()
         .then((data) => {
-            console.log(data)
             res.render('exams/resultsList', { data, moment });
         })
         .catch(console.log)

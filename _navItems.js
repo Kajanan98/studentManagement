@@ -46,6 +46,11 @@ const menus = [
             {
                 title: 'List',
                 icon: 'fas fa-list',
+                href: "/notices"
+            },
+            {
+                title: 'Manage',
+                icon: 'fas fa-cogs',
                 href: "/notices/1"
             },
             {
@@ -83,11 +88,6 @@ const menus = [
                 title: 'List',
                 icon: 'fas fa-list',
                 href: "/classes"
-            },
-            {
-                title: 'TimeTable',
-                icon: 'fas fa-calendar-alt',
-                href: "/classes/timetable"
             },
             {
                 title: 'Add Class',

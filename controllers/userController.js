@@ -4,19 +4,6 @@ const Class = require('../models/Class')
 const bcrypt = require('bcrypt');
 const moment = require('moment')
 
-const registerPrincipal = (req, res) => {
-    const { name, address, mobile_number: mobile, nic: NIC, username, password, cPassword } = req.body;
-    if (password === cPassword) {
-        User.createUser(name, address, mobile, NIC, username, password, 'principal')
-            .then(data => {
-                res.redirect('/login')
-            })
-            .catch(console.log)
-    } else {
-        res.redirect('/login')
-    }
-}
-
 const listAll = async (req, res) => {
     const principal = await User.getPrincipal();
     const teachers = await User.getTeachers()
@@ -180,7 +167,6 @@ const viewStudent = (req, res) => {
 }
 
 module.exports = {
-    registerPrincipal,
     listAll,
     manage,
     addTeacher,

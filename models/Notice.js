@@ -5,9 +5,8 @@ const NoticeSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
+    title: {
+        type: String,
     },
     content: {
         type: String,
@@ -20,16 +19,16 @@ exports.getAll = () => {
     return Notice.find()
 }
 
-exports.addNotice = (author, content) => {
-    const notice = new Notice({ author, content });
+exports.addNotice = (title, content) => {
+    const notice = new Notice({ title, content });
     return notice.save()
 }
 
-exports.updateNotice = (id, content) => {
+exports.updateNotice = (id, title, content) => {
     return Notice.updateOne(
         { _id: id },
         {
-            $set: { id, content }
+            $set: { title, content }
         }
     )
 }

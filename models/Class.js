@@ -9,9 +9,8 @@ const AttendanceSchema = new Schema({
     records: [{
         studentId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Users',
+            ref: 'User',
             required: true,
-            unique: true
         },
         attendance: {
             type: Boolean,
@@ -36,23 +35,13 @@ var ClassSchema = new Schema({
     students: [{
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            unique: true
+            ref: 'User'
         }
-    }],
-    teachers: [{
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            unique: true
-        },
-        subject: String
     }],
     timeTable: [{
         period: {
             type: Number,
             default: 0,
-            unique: true
         },
         teacher: {
             type: Schema.Types.ObjectId,
@@ -113,12 +102,6 @@ exports.removeStudent = (_id, studentid) => {
                 userId: studentid
             }
         }
-    })
-}
-
-exports.addTeacher = (_id, title, description, classTeacher) => {
-    return Class.updateOne({ _id }, {
-        $set: { title, description, classTeacher }
     })
 }
 
@@ -528,7 +511,7 @@ exports.listAllTimetables = () => {
                     ]
                 }
             }
-        }
+        },
     ])
 }
 
@@ -566,6 +549,6 @@ exports.listAllWithSubTeachers = () => {
                     }
                 }
             }
-        }
+        },
     ])
 }

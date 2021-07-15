@@ -1,9 +1,16 @@
 const Notice = require('../models/Notice');
 
+const listAll = (req, res) => {
+    Notice.getAll()
+        .then(data => {
+            res.render('notices', { data })
+        })
+        .catch(console.log)
+}
+
 const getAll = (req, res) => {
     var perPage = 6
     var page = req.params.page || 1
-
     Notice.getAll()
         .then(notice => {
             count = notice.length
@@ -18,12 +25,18 @@ const getAll = (req, res) => {
         .catch(console.log)
 }
 
+const viewNewPage = (req, res) => {
+    res.render('notices/newNotice', {
+        title: 'Add Notice',
+        data: false,
+        userId: req.user._id
+    })
+}
+
 const addNotice = (req, res) => {
-    const author = req.body.author;
-    const content = req.body.content;
-    Notice.addNotice(author, content)
+    const { title, content } = req.body;
+    Notice.addNotice(title, content)
         .then((result) => {
-            console.log(result);
             res.redirect('/notices/1')
         })
         .catch(console.log())
@@ -31,8 +44,8 @@ const addNotice = (req, res) => {
 
 const updateNotice = (req, res) => {
     const { id } = req.params;
-    const { content } = req.body;
-    Notice.updateNotice(id, content)
+    const { title, content } = req.body;
+    Notice.updateNotice(id, title, content)
         .then(result => {
             res.redirect('/notices/1')
         })
@@ -62,10 +75,11 @@ const deleteOne = (req, res) => {
 
 
 module.exports = {
+    listAll,
     getAll,
+    viewNewPage,
     addNotice,
     updateNotice,
     viewEidtPage,
     deleteOne,
-
 }
