@@ -19,8 +19,8 @@ const getAll = (req, res) => {
                 title: 'View Notice',
                 current: page,
                 data: notice.slice((perPage * page) - perPage, (perPage * page)),
-                pages: Math.ceil(count / perPage)
-
+                pages: Math.ceil(count / perPage),
+                moment
             })
         })
         .catch(console.log)

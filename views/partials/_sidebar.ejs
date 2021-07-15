@@ -26,14 +26,14 @@
                 </div>
             </div>
 
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
                         <% menus[type] && menus[type].forEach( menu => { %>
                             <li class="nav-item <%= (menu.title===current_menu.parent)?'menu-open':'' %>">
                                 <a href="<%= menu.href %>" class="nav-link <%= (menu.title===current_menu.parent)?'active':'' %>">
@@ -59,28 +59,28 @@
                                 <% } %>
                             </li>
                         <% }) %>
-                    <li class="nav-item">
-                        <a href="/logout" class="nav-link">
-                           <i class="fas fa-sign-out-alt"></i>
-                            <p>
-                                Log out
-                            </p>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                                <p>
+                                    Log out
+                                </p>
+                            </a>
+                        </li>
 
-          <li class="nav-item">
-            <a href="users/faq" class="nav-link">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-              <p>
-                Help
-              </p>
-            </a>
-          </li>
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                <p>
+                                    Help
+                                </p>
+                            </a>
+                        </li>
+                    </nav>
+                </ul>
             </nav>
-      </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
-  </div>
+            <!-- /.sidebar-menu -->
+        </div>
     </div>
     <!-- /.sidebar -->
 

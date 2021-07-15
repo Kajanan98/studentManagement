@@ -20,27 +20,24 @@
 
     <hr>
     <div class="card-columns">
-    <% data.forEach(function(datas){%>
-    <div class="card p-3">
-      <blockquote class="blockquote mb-0 card-body">
-        <p><%= datas.content %></p>
-        <footer class="blockquote-footer">
-          <small class="text-muted">
-            <%= datas.author %> 
-            
-          </small>
-        </footer>
-        <footer class="blockquote-footer">
-            <small class="text-muted">
-                <%= datas.date %>
-              
-            </small>
-          </footer>
-        
-      </blockquote>
+      <% data.forEach(function(datas){%>
+        <div class="card p-3">
+          <blockquote class="blockquote mb-0 card-body">
+            <p><%= datas.content %></p>
+            <footer class="blockquote-footer">
+              <small class="text-muted">
+                <%= datas.author.name %>
+              </small>
+            </footer>
+            <footer class="blockquote-footer">
+                <small class="text-muted">
+                    <%= moment(datas.date).format("DD MMM YYYY hh:mm") %>
+                </small>
+              </footer>
+          </blockquote>
+        </div>
+      <% }) %>
     </div>
-
-
 
 
     <% if (pages > 0) { %>

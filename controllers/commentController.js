@@ -1,4 +1,5 @@
 const Comment = require('../models/Comment');
+const moment = require('moment')
 
 const getAll = (req, res) => {
     var perPage = 6
@@ -9,11 +10,11 @@ const getAll = (req, res) => {
             count = comment.length
             res.render('comments/viewComment', {
                 title: 'View Comments',
-                title1:'Add Comment',
+                title1: 'Add Comment',
                 current: page,
                 data: comment.slice((perPage * page) - perPage, (perPage * page)),
-                pages: Math.ceil(count / perPage)
-
+                pages: Math.ceil(count / perPage),
+                moment
             })
         })
         .catch(console.log)

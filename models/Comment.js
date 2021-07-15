@@ -18,7 +18,28 @@ const Comment = mongoose.model('Comment', CommentSchema)
 
 
 exports.getAll = () => {
-    return Comment.find()
+    return Comment.aggregate([
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'author',
+                foreignField: '_id',
+                as: 'author'
+            }
+        },
+        {
+            $addFields: {
+                author: {
+                    $arrayElemAt: ["$author", 0]
+                }
+            }
+        },
+        {
+            $sort: {
+                date: 1
+            }
+        }
+    ])
 }
 
 exports.addComment = (author, content) => {

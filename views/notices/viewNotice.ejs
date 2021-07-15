@@ -1,4 +1,4 @@
-<%- include('../partials/_top', { current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
+<%- include('../partials/_top', { title:"Manage Notices", current_menu : {parent: 'Notices', child: 'Manage'} }) %>
 
 <section class="content">
   <div class="container-fluid">
@@ -10,16 +10,9 @@
           <p><%= datas.content %></p>
           <footer class="blockquote-footer">
             <small class="text-muted">
-              <%= datas.author %> 
-              
+              <%= moment(datas.date).format("DD MMM YYYY hh:mm") %>
             </small>
           </footer>
-          <footer class="blockquote-footer">
-              <small class="text-muted">
-                  <%= datas.date %>
-                
-              </small>
-            </footer>
           <div class="card-footer text-right">
               <a href="/notices/delete/<%= datas._id %>"><small ><i class="fa fa-trash" aria-hidden="true"></i></small></a>&nbsp&nbsp&nbsp
               <a href="/notices/editSubmit/<%= datas._id %>"><small ><i class="fa fa-edit" aria-hidden="true"></i></small></a>
@@ -28,10 +21,7 @@
       </div>
       <% }) %> 
   </div>
-
-
-
-
+  
   <% if (pages > 0) { %>
     <ul class="pagination justify-content-center">
       <% if (current == 1) { %>
