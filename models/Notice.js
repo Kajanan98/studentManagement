@@ -16,7 +16,7 @@ const NoticeSchema = new mongoose.Schema({
 const Notice = mongoose.model('Notice', NoticeSchema)
 
 exports.getAll = () => {
-    return Notice.find()
+    return Notice.find().sort({ date: -1 })
 }
 
 exports.addNotice = (title, content) => {

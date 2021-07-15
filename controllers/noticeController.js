@@ -1,9 +1,10 @@
 const Notice = require('../models/Notice');
+const moment = require('moment')
 
 const listAll = (req, res) => {
     Notice.getAll()
         .then(data => {
-            res.render('notices', { data })
+            res.render('notices', { data, moment })
         })
         .catch(console.log)
 }
