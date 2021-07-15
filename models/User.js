@@ -101,3 +101,39 @@ exports.getTeachers = () => {
 exports.deleteOne = (_id) => {
     return User.findOneAndDelete({ _id })
 }
+
+exports.findNotices = (author) => {
+    return User.aggregate([
+        {
+            $match: {
+                _id:mongoose.Types.ObjectId(author)
+            }
+        },
+        {
+            $lookup: {
+                from: "notices",
+                as: "_notice",
+                localField: "_id",
+                foreignField: "author"
+            }
+        }
+    ])
+}
+
+exports.findComments = (author) => {
+    return User.aggregate([
+        {
+            $match: {
+                _id:mongoose.Types.ObjectId(author)
+            }
+        },
+        {
+            $lookup: {
+                from: "comments",
+                as: "_comment",
+                localField: "_id",
+                foreignField: "author"
+            }
+        }
+    ])
+}

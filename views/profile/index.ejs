@@ -1,116 +1,219 @@
 <%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
 
 
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Profile</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- About Me Box -->
-    <div class="container-fluid">
-    <div class="row">
-    <div class="card card-primary col-md-3">
-      <div class="card-header">
-        <h3 class="card-title">About Me</h3>
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Profile</h1>
       </div>
-      <!-- /.card-header -->
-      <div class="card-body">
-        <strong><i class="fa fa-address-book mr-1"></i> Name</strong>
-
-        <p class="text-muted">
-          <%= data.name %>
-        </p>
-
-        <hr>
-
-        <strong><i class="fas fa-map-marker-alt mr-1"></i> Address</strong>
-
-        <p class="text-muted">
-          <%= data.address %>
-        </p>
-
-        <hr>
-        <strong><i class="fas fa-mobile mr-1"></i> Mobile Number</strong>
-
-        <p class="text-muted">
-          <%= data.mobile %>
-        </p>
-
-        <hr>
-
-        <strong><i class="fa fa-id-card mr-1"></i> NIC</strong>
-
-        <p class="text-muted">
-          <%= data.NIC %>
-        </p>
-
-        <hr>
-
-        <strong><i class="fa fa-user mr-1"></i> Username</strong>
-
-        <p class="text-muted">
-          <%= data.username %>
-        </p>
-
-        <hr>
- 
-        
-      </div>
-      <!-- /.card-body -->
     </div>
-      <div class="col-md-9">
-        <section class="content">
+  </div>
+</section>
+    
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="card card-primary col-md-12">
+      <div class="card-header">
+        <h3 class="card-title">Profile Details</h3>
+      </div>
+      
+      <div class="card-body">
+        <strong><i class="fa fa-address-book mr-1"></i> Name - </strong> 
+
+        <span class="text-muted">
+          <%= data.name %>
+        </span>
+
+        <hr>
+
+        <strong><i class="fas fa-map-marker-alt mr-1"></i> Address - </strong>
+
+        <span class="text-muted">
+          <%= data.address %>
+        </span>
+
+        <hr>
+        <strong><i class="fas fa-mobile mr-1"></i> Mobile Number - </strong>
+
+        <span class="text-muted">
+          <%= data.mobile %>
+        </span>
+
+        <hr>
+
+        <strong><i class="fa fa-id-card mr-1"></i> NIC - </strong>
+
+        <span class="text-muted">
+          <%= data.NIC %>
+        </span>
+
+        <hr>
+
+        <strong><i class="fa fa-user mr-1"></i> Username - </strong>
+
+        <span class="text-muted">
+          <%= data.username %>
+        </span>
+
+        <hr>
+        <a href="/users/profile/edit" class="btn btn-info float-right" role="button" aria-disabled="true" >Edit Details</a>
+        <!-- <button type="button" class="btn btn-info btn-lg btn-block"  >Edit Details</button> -->
+      </div>    
+    </div>
+  </div>
+</div>
+       
+<div class="container-fluid">
+  <div class="row">
+    <div class="card card-primary col-md-5">
+        <section class="content card-primary">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Attendance</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    
                     <th>Date</th>
                     <th>Present or Absent</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
-                  
                   <% data.attendance.forEach( row => { %>
                     <tr data-id="<%= row.id %>">
-                      
                       <td><%= row.date %></td>
                       <td><%= row.attendance %></td>
-                      
                     </tr>
                   <% }) %>
-                  
                 </tbody>
               </table>
             </div>
-            <!-- /.card-body -->
+          </div>
+        </section>
+
+    </div> 
+
+    <div class="col-md-7">
+      <section class="content card-primary">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Result</h3>
+          </div>
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Marks</th>
+                  <th>Pass or Fail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.attendance.forEach( row => { %>
+                  <tr data-id="<%= row.id %>">
+                    <td><%= row.date %></td>
+                    <td><%= row.attendance %></td>
+                    <td><%= row.attendance %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-        <!-- /.card -->
-        </section></div></div>
+      </section>
+    </div>
+  </div>
+</div> 
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="card  col-md-12">
+      
+      
+          
+            <div class="card-header">
+              <h3 class="card-title">Notices</h3>
+            </div>
+            <% notices.forEach(function(notice){ %> 
+            <div class="timeline timeline-inverse">
+              <div class="time-label">
+                <span class="bg-danger">
+                  <%= moment(notice.date).format( 'D MMMM YYYY' ) %>
+                </span>
+              </div>
+            <div>
+            <i class="fas fa-list bg-primary"></i>
+    
+            <div class="timeline-item">
+              <span class="time"><i class="far fa-clock"></i> <%= moment(notice.date).format( 'h:mm:ss') %> </span>
+    
+              <h3 class="timeline-header">Notices</h3>
+    
+              <div class="timeline-body">
+                <%= notice.content %>
+              </div>
+              <div class="timeline-footer">
+                <a href="/notices/editSubmit/<%= notice._id %>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/notices/delete/<%= notice._id %>" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+            </div>
+            <% }) %>   
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="card  col-md-12">
+      
+      
+          
+            <div class="card-header">
+              <h3 class="card-title">Comments</h3>
+            </div>
+            <% comments.forEach(function(comment){ %> 
+            <div class="timeline timeline-inverse">
+              <div class="time-label">
+                <span class="bg-danger">
+                  <%= moment(comment.date).format( 'D MMMM YYYY' ) %>
+                </span>
+              </div>
+            <div>
+            <i class="fas fa-comment bg-primary"></i>
+    
+            <div class="timeline-item">
+              <span class="time"><i class="far fa-clock"></i> <%= moment(comment.date).format( 'h:mm:ss') %> </span>
+    
+              <h3 class="timeline-header">Comment</h3>
+    
+              <div class="timeline-body">
+                <%= comment.content %>
+              </div>
+              <div class="timeline-footer">
+                <a href="/comments/editSubmit/<%= comment._id %>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/comments/delete/<%= comment._id %>" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+            </div>
+            <% }) %> 
+          
+ 
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
 <%- include('../partials/_bottom') %>
         
-        <!-- DataTables  & Plugins -->
+        
         <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-      
-      
 
-        
-      
-        
         <script>
             $(function () {
               $("#example1").DataTable({
@@ -119,3 +222,13 @@
               }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             });
           </script>
+
+          <script>
+            $(function () {
+              $("#example2").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                
+              }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+            });
+          </script>
+

@@ -17,5 +17,7 @@ router.post('/editUser/editSubmit/:id', userController.updateUser);
 
 router.get('/profile/',userController.getProfile)
 router.get('/delete/:id', userController.deleteOne)
+router.get('/profile/edit',userController.editProfilePage)
+router.post('/profile/editSubmit',userController.updateProfile)
 
 module.exports = router
