@@ -147,8 +147,8 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
-                    icon: 'fas fa-list',
+                    title: 'Dates',
+                    icon: 'fas fa-calendar-alt',
                     href: "/exams"
                 },
                 {
