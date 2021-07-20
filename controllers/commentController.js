@@ -45,7 +45,7 @@ const viewEidtPage = async (req, res) => {
     Comment.findOne(id)
         .then(result => {
             res.render('Comments/newComment', {
-                title: "Edit Comment",
+                title1: "Edit Comment",
                 data: result,
             })
         })

@@ -2,7 +2,11 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 
-router.get('/', userController.listAll)
+// router.get('/', userController.listAll)
+router.get('/viewPrincipal', userController.listAllPrincipal)
+router.get('/viewTeacher', userController.listAllTeacher)
+router.get('/viewStudent', userController.listAllStudent)
+router.get('/viewParent', userController.listAllParent)
 router.get('/newUser', async (req, res) => {
     res.render('users/newUser', { title: 'New User', data: false })
 })

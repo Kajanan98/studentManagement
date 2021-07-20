@@ -29,10 +29,30 @@ const menus = [
         icon: 'fas fa-users',
         href: "#",
         children: [
+            // {
+            //     title: 'List',
+            //     icon: 'fas fa-list',
+            //     href: "/users"
+            // },
             {
-                title: 'List',
-                icon: 'fas fa-list',
-                href: "/users"
+                title: 'View Principal',
+                icon: 'fas fa-user',
+                href: "/users/viewPrincipal"
+            },
+            {
+                title: 'View Teachers',
+                icon: 'fas fa-user',
+                href: "/users/viewTeacher"
+            },
+            {
+                title: 'View Students',
+                icon: 'fas fa-user',
+                href: "/users/viewStudent"
+            },
+            {
+                title: 'View Parents',
+                icon: 'fas fa-user',
+                href: "/users/viewParent"
             },
             {
                 title: 'Manage',

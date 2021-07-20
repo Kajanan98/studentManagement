@@ -1,10 +1,10 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Fleet Management", current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
+<%- include('../partials/_top', {title:title1, current_menu : {parent: 'Vehicles', child: 'Vehicles'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
     <div class="card-header">
-        <h3 class="card-title"><%= title %></h3>
+        <h3 class="card-title"><%= title1 %></h3>
     </div>
     
     <form method="post" action="<%='/comments/editSubmit/'+data._id %>">

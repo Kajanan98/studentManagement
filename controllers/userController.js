@@ -17,12 +17,55 @@ const registerPrincipal = (req, res) => {
     }
 }
 
-const listAll = async (req, res) => {
+// const listAll = async (req, res) => {
+//     const principal = await User.getPrincipal();
+//     const teachers = await User.getTeachers()
+//     const students = await User.getStudents();
+//     const parents = await User.getParents()
+//     res.render('users', { principal, teachers, students, parents })
+// }
+const listAllPrincipal = async (req,res) => {
     const principal = await User.getPrincipal();
-    const teachers = await User.getTeachers()
+    res.render('users',{
+        principal,
+        teachers:false,
+        students:false,
+        parents:false,
+        title:'View Principal'
+    })
+}
+
+const listAllTeacher = async (req,res) => {
+    const teachers = await User.getTeachers();
+    res.render('users',{
+        principal:false,
+        teachers,
+        students:false,
+        parents:false,
+        title:'View Teachers'
+    })
+}
+
+const listAllStudent = async (req,res) => {
     const students = await User.getStudents();
-    const parents = await User.getParents()
-    res.render('users', { principal, teachers, students, parents })
+    res.render('users',{
+        principal:false,
+        teachers:false,
+        students,
+        parents:false,
+        title:'View Students'
+    })
+}
+
+const listAllParent = async (req,res) => {
+    const parents = await User.getParents();
+    res.render('users',{
+        principal:false,
+        teachers:false,
+        students:false,
+        parents,
+        title:'View Parents'
+    })
 }
 
 const manage = (req, res) => {
@@ -181,7 +224,7 @@ const viewStudent = (req, res) => {
 
 module.exports = {
     registerPrincipal,
-    listAll,
+    // listAll,
     manage,
     addTeacher,
     addStudent,
@@ -194,5 +237,9 @@ module.exports = {
     deleteOne,
     editProfilePage,
     updateProfile,
-    viewStudent
+    viewStudent,
+    listAllPrincipal,
+    listAllTeacher,
+    listAllStudent,
+    listAllParent
 }
