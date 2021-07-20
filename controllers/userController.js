@@ -4,12 +4,68 @@ const Class = require('../models/Class')
 const bcrypt = require('bcrypt');
 const moment = require('moment')
 
-const listAll = async (req, res) => {
+const registerPrincipal = (req, res) => {
+    const { name, address, mobile_number: mobile, nic: NIC, username, password, cPassword } = req.body;
+    if (password === cPassword) {
+        User.createUser(name, address, mobile, NIC, username, password, 'principal')
+            .then(data => {
+                res.redirect('/login')
+            })
+            .catch(console.log)
+    } else {
+        res.redirect('/login')
+    }
+}
+
+// const listAll = async (req, res) => {
+//     const principal = await User.getPrincipal();
+//     const teachers = await User.getTeachers()
+//     const students = await User.getStudents();
+//     const parents = await User.getParents()
+//     res.render('users', { principal, teachers, students, parents })
+// }
+const listAllPrincipal = async (req, res) => {
     const principal = await User.getPrincipal();
-    const teachers = await User.getTeachers()
+    res.render('users', {
+        principal,
+        teachers: false,
+        students: false,
+        parents: false,
+        title: 'View Principal'
+    })
+}
+
+const listAllTeacher = async (req, res) => {
+    const teachers = await User.getTeachers();
+    res.render('users', {
+        principal: false,
+        teachers,
+        students: false,
+        parents: false,
+        title: 'View Teachers'
+    })
+}
+
+const listAllStudent = async (req, res) => {
     const students = await User.getStudents();
-    const parents = await User.getParents()
-    res.render('users', { principal, teachers, students, parents })
+    res.render('users', {
+        principal: false,
+        teachers: false,
+        students,
+        parents: false,
+        title: 'View Students'
+    })
+}
+
+const listAllParent = async (req, res) => {
+    const parents = await User.getParents();
+    res.render('users', {
+        principal: false,
+        teachers: false,
+        students: false,
+        parents,
+        title: 'View Parents'
+    })
 }
 
 const manage = (req, res) => {
@@ -43,7 +99,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     User.createUser(name, address, mobile, NIC, username, hashedPassword, type)
         .then(result => {
-            res.redirect('/users');
+            res.redirect('/users/manage');
         })
         .catch(console.log)
 }
@@ -174,7 +230,8 @@ const viewDashboard = (req, res) => {
 }
 
 module.exports = {
-    listAll,
+    registerPrincipal,
+    // listAll,
     manage,
     addTeacher,
     addStudent,
@@ -188,5 +245,9 @@ module.exports = {
     editProfilePage,
     updateProfile,
     viewStudent,
-    viewDashboard
+    viewDashboard,
+    listAllPrincipal,
+    listAllTeacher,
+    listAllStudent,
+    listAllParent
 }
