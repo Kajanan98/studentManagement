@@ -223,8 +223,9 @@ const viewStudent = (req, res) => {
 
 const viewDashboard = (req, res) => {
     User.getDashBoard()
-        .then(data => {
-            res.render('dashboard', { data })
+        .then(async data => {
+            const exams = await Exam.listAll()
+            res.render('dashboard', { data, exams })
         })
         .catch(console.log)
 }

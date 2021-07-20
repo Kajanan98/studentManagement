@@ -80,23 +80,6 @@ const findWithResult = (req, res) => {
         .catch(console.log)
 }
 
-const resultSelectExamReport = (req, res) => {
-    Exam.listAll()
-        .then(data => {
-            res.render('exams/selectExam', { data, moment, parent: 'Reports', child: 'Exam Results', link: '/reports/results/' });
-        })
-        .catch(console.log)
-}
-
-const findWithResultReport = (req, res) => {
-    const { examId } = req.params;
-    Exam.findWithResult(examId)
-        .then(([data]) => {
-            res.render('exams/results', { data, moment, parent: 'Reports', child: 'Exam Results' })
-        })
-        .catch(console.log)
-}
-
 const addResultSelectExam = (req, res) => {
     Exam.listAll()
         .then(data => {
@@ -157,6 +140,4 @@ module.exports = {
     viewResultItem,
     updateResult,
     resultsList,
-    resultSelectExamReport,
-    findWithResultReport
 }

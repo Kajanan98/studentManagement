@@ -414,6 +414,24 @@ const menus = {
                 },
             ]
         },
+        {
+            title: 'Reports',
+            icon: 'fas fa-clipboard',
+            href: "#",
+            children: [
+                {
+                    title: 'Attendances',
+                    icon: 'fas fa-calendar-alt',
+                    href: "/reports/attendances"
+                },
+                {
+                    title: 'Exam Results',
+                    icon: 'fas fa-poll',
+                    href: "/reports/results"
+                },
+
+            ]
+        },
     ],
     student: [
         {
