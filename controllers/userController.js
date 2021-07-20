@@ -99,7 +99,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     User.createUser(name, address, mobile, NIC, username, hashedPassword, type)
         .then(result => {
-            res.redirect('/users');
+            res.redirect('/users/manage');
         })
         .catch(console.log)
 }
