@@ -19,6 +19,11 @@ mongoose.connect(process.env.DB_CONNECT, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
+}, function (err) {
+    var admin = new mongoose.mongo.Admin(mongoose.connection.db);
+    admin.buildInfo(function (err, info) {
+        console.log(info.version);
+    });
 })
 const db = mongoose.connection
 db.on('error', error => console.error(error))

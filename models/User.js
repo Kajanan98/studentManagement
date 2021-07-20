@@ -31,16 +31,6 @@ const UserSchema = new mongoose.Schema({
         enum: ['principal', 'teacher', 'student', 'parent'],
         default: 'student'
     },
-    // joinedDate:{
-    //     type:Date,
-    //     required:true
-    // },
-    // class:{
-    //     type:String,
-    // },
-    // description:{
-    //     type:String,
-    // }
 })
 
 const User = mongoose.model('User', UserSchema);
@@ -130,6 +120,26 @@ exports.findComments = (author) => {
                 as: "_comment",
                 localField: "_id",
                 foreignField: "author"
+            }
+        }
+    ])
+}
+
+exports.getDashBoard = () => {
+    return User.aggregate([
+        {
+            $match: {
+                type: {
+                    $ne: "principal"
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$type",
+                count: {
+                    "$sum": 1
+                }
             }
         }
     ])

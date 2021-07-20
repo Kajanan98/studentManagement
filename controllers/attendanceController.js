@@ -10,11 +10,26 @@ const viewAttendanceClass = (req, res) => {
         .catch(console.log)
 }
 
+const viewAttendanceClassReport = (req, res) => {
+    Class.listAll()
+        .then(data => {
+            res.render('selectClass', { data, parent: 'Reports', child: 'Attendances', link: '/reports/attendances/' })
+        })
+        .catch(console.log)
+}
+
 const viewAttendance = async (req, res) => {
     const { classId } = req.params;
     const [data] = await Class.viewAttendance(classId);
     const [detail] = await Class.getSummary(classId)
-    res.render('attendance/view', { data, detail, moment })
+    res.render('attendance/view', { data, detail, moment, parent: 'Attendance', child: 'View' })
+}
+
+const viewAttendanceReport = async (req, res) => {
+    const { classId } = req.params;
+    const [data] = await Class.viewAttendance(classId);
+    const [detail] = await Class.getSummary(classId)
+    res.render('attendance/view', { data, detail, moment, parent: 'Reports', child: 'Attendances', })
 }
 
 const viewHistoryClass = (req, res) => {
@@ -100,5 +115,7 @@ module.exports = {
     markAttendance,
     viewEditPage,
     updateAttendanceDate,
-    updateAttendanceRecord
+    updateAttendanceRecord,
+    viewAttendanceClassReport,
+    viewAttendanceReport,
 }

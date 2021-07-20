@@ -87,7 +87,7 @@ const updateUser = (req, res) => {
     const type = req.body.type;
     User.updateUser(id, name, address, mobile, NIC, password, type)
         .then(result => {
-            
+
             res.redirect('/users/manage')
         })
         .catch(console.log);
@@ -126,7 +126,7 @@ const deleteOne = (req, res) => {
 
 const editProfilePage = (req, res) => {
     const id = req.user._id;
-    
+
     User.getUserByID(id)
         .then(result => {
             res.render('profile/edit', {
@@ -159,11 +159,18 @@ const viewStudent = (req, res) => {
         .then(async data => {
             const exams = await Exam.findForStudent(studentId)
             const attendances = await Class.attendanceForStudent(studentId)
-            console.log(attendances)
             data.initials = data.name.split(" ").map((n) => n[0]).join("");;
             res.render('users/viewStudent', { data, exams, attendances, moment })
         })
         .catch(console.log);
+}
+
+const viewDashboard = (req, res) => {
+    User.getDashBoard()
+        .then(data => {
+            res.render('dashboard', { data })
+        })
+        .catch(console.log)
 }
 
 module.exports = {
@@ -180,5 +187,6 @@ module.exports = {
     deleteOne,
     editProfilePage,
     updateProfile,
-    viewStudent
+    viewStudent,
+    viewDashboard
 }

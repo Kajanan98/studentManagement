@@ -3,15 +3,77 @@
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
-    <div class="card-header">
-      <h3 class="card-title">Dashboard</h3>
-    </div>
     <!-- /.card-header -->
-    <div class="card-body" style="height: 50vh">
-      Welcome
+    <div class="card-body">
+      <img class="mb-2" src="/images/DPblack.png" style="width: 100%;" alt="logo">
     </div>
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
+
+
+<%
+  let teacher = data.find(item => item._id==='teacher')
+  let student = data.find(item => item._id==='student')
+  let parent = data.find(item => item._id==='parent')
+%>
+<div class="row m-2">
+  <div class="col-lg-4 col-12">
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+      <div class="card-body box-profile">
+        <h3 class="profile-username text-center">Teachers</h3>
+        <p class="text-muted text-center">Number of teachers</p>
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+            <b>Count</b> <a class="float-right"><%= teacher.count %></a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+
+  <div class="col-lg-4 col-12">
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+      <div class="card-body box-profile">
+        <h3 class="profile-username text-center">Students</h3>
+        <p class="text-muted text-center">Number of students</p>
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+            <b>Count</b> <a class="float-right"><%= student.count %></a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+
+  <div class="col-lg-4 col-12">
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+      <div class="card-body box-profile">
+        <h3 class="profile-username text-center">Parents</h3>
+        <p class="text-muted text-center">Number of parents</p>
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+            <b>Count</b> <a class="float-right"><%= parent.count %></a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+
+</div>
+
+
 
 <%- include('./partials/_bottom') %>

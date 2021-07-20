@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController')
+const useController = require('../controllers/userController')
 
 //landing page
 router.get('/', (req, res) => {
@@ -22,9 +23,7 @@ router.use((req, res, next) => {
     }
 });
 
-router.get('/dashboard', (req, res) => {
-    res.render('dashboard')
-})
+router.get('/dashboard', useController.viewDashboard)
 // router.use('/admin', require('./admin'))
 router.use('/users', require('./users'))
 router.use('/classes', require('./classes'))
@@ -33,5 +32,6 @@ router.use('/attendance', require('./attendance'))
 router.use('/exams', require('./exams'))
 router.use('/notices', require('./notices'))
 router.use('/comments', require('./comment'))
+router.use('/reports', require('./reports'))
 
 module.exports = router

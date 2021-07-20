@@ -1,5 +1,5 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Users", current_menu : {parent: 'Attendance', child: 'View'} }) %>
+<%- include('../partials/_top', {title:"Users", current_menu : {parent, child} }) %>
 <!-- header-section end -->
 
 <style>
@@ -16,6 +16,14 @@
     display:inline-block;
     vertical-align:middle;
 }
+@media print {
+    .card.card-primary {
+      font-family:georgia, times, serif;
+    }
+    .main-footer, .card-footer {
+      display: none;
+    }
+  }
 </style>
 
 <div class="card card-primary m-3">
@@ -58,6 +66,9 @@
       </table>
     </div>
     <!-- /.card-body -->
+    <div class="card-footer">
+      <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
+    </div>
 </div>
 <!-- /.card -->
 

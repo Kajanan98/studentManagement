@@ -66,7 +66,7 @@ const deleteOne = (req, res) => {
 const resultSelectExam = (req, res) => {
     Exam.listAll()
         .then(data => {
-            res.render('exams/selectExam', { data, moment, child: 'Results', link: '/exams/results/' });
+            res.render('exams/selectExam', { data, moment, parent: 'Exams', child: 'Results', link: '/exams/results/' });
         })
         .catch(console.log)
 }
@@ -75,7 +75,24 @@ const findWithResult = (req, res) => {
     const { examId } = req.params;
     Exam.findWithResult(examId)
         .then(([data]) => {
-            res.render('exams/results', { data, moment })
+            res.render('exams/results', { data, moment, parent: 'Exams', child: 'Results' })
+        })
+        .catch(console.log)
+}
+
+const resultSelectExamReport = (req, res) => {
+    Exam.listAll()
+        .then(data => {
+            res.render('exams/selectExam', { data, moment, parent: 'Reports', child: 'Exam Results', link: '/reports/results/' });
+        })
+        .catch(console.log)
+}
+
+const findWithResultReport = (req, res) => {
+    const { examId } = req.params;
+    Exam.findWithResult(examId)
+        .then(([data]) => {
+            res.render('exams/results', { data, moment, parent: 'Reports', child: 'Exam Results' })
         })
         .catch(console.log)
 }
@@ -139,5 +156,7 @@ module.exports = {
     initiateResult,
     viewResultItem,
     updateResult,
-    resultsList
+    resultsList,
+    resultSelectExamReport,
+    findWithResultReport
 }
