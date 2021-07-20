@@ -1,4 +1,6 @@
 const Exam = require('../models/Exam');
+const Class = require('../models/Class');
+const moment = require('moment')
 
 const viewAttendanceClassReport = (req, res) => {
     Class.listAll()
