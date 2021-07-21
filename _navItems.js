@@ -30,10 +30,30 @@ const menus = {
             icon: 'fas fa-users',
             href: "#",
             children: [
+                // {
+                //     title: 'List',
+                //     icon: 'fas fa-list',
+                //     href: "/users"
+                // },
                 {
-                    title: 'List',
-                    icon: 'fas fa-list',
-                    href: "/users"
+                    title: 'View Principal',
+                    icon: 'fas fa-user',
+                    href: "/users/viewPrincipal"
+                },
+                {
+                    title: 'View Teachers',
+                    icon: 'fas fa-user',
+                    href: "/users/viewTeacher"
+                },
+                {
+                    title: 'View Students',
+                    icon: 'fas fa-user',
+                    href: "/users/viewStudent"
+                },
+                {
+                    title: 'View Parents',
+                    icon: 'fas fa-user',
+                    href: "/users/viewParent"
                 },
                 {
                     title: 'Manage',
@@ -211,6 +231,29 @@ const menus = {
                     title: 'Exam Results',
                     icon: 'fas fa-poll',
                     href: "/reports/results"
+                },
+                {
+                    title: 'Class Wise Results',
+                    icon: 'fas fa-list',
+                    href: "/reports/resultsForClasses"
+                },
+
+            ]
+        },
+        {
+            title: 'Children',
+            icon: 'fas fa-child',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/children"
+                },
+                {
+                    title: 'Add Children',
+                    icon: 'fas fa-plus',
+                    href: "/children/new"
                 },
 
             ]
