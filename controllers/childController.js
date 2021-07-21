@@ -19,7 +19,7 @@ const viewEidtPage = (req, res) => {
     Children.findOne(id)
         .then(async result => {
             const students = await User.getStudents();
-            const parents = await User.getParents();console.log(result)
+            const parents = await User.getParents(); console.log(result)
             res.render('child/', { data: result, students, parents })
         })
         .catch(console.log)
@@ -56,17 +56,17 @@ const removeStudent = (req, res) => {
         .catch(console.log)
 }
 
-const listAll = (req,res) => {
+const listAll = (req, res) => {
     const parentId = req.user._id;
     // const parentId = '60f8038bbe90201450cdad76'
     Children.getStudentsDetails(parentId)
-    .then(result => {
-        res.render('child/listChild',{
-            students:result[0]._students,
+        .then(result => {
+            res.render('child/listChild', {
+                students: result[0] ? result[0]._students : [],
+            })
+            // res.send(result[0]._students)
         })
-        // res.send(result[0]._students)
-    })
-    .catch(console.log())
+        .catch(console.log())
 }
 
 module.exports = {
@@ -76,5 +76,5 @@ module.exports = {
     viewEidtPage,
     addStudent,
     removeStudent,
-   
+
 }

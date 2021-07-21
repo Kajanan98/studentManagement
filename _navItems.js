@@ -246,11 +246,6 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
-                    icon: 'fas fa-list',
-                    href: "/children"
-                },
-                {
                     title: 'Add Children',
                     icon: 'fas fa-plus',
                     href: "/children/new"
@@ -475,6 +470,19 @@ const menus = {
 
             ]
         },
+        {
+            title: 'Children',
+            icon: 'fas fa-child',
+            href: "#",
+            children: [
+                {
+                    title: 'Add Children',
+                    icon: 'fas fa-plus',
+                    href: "/children/new"
+                },
+
+            ]
+        },
     ],
     student: [
         {
@@ -500,18 +508,6 @@ const menus = {
                     href: "/users/profile/edit"
                 },
 
-            ]
-        },
-        {
-            title: 'Users',
-            icon: 'fas fa-users',
-            href: "#",
-            children: [
-                {
-                    title: 'List',
-                    icon: 'fas fa-list',
-                    href: "/users"
-                }
             ]
         },
         {
@@ -615,18 +611,6 @@ const menus = {
             ]
         },
         {
-            title: 'Users',
-            icon: 'fas fa-users',
-            href: "#",
-            children: [
-                {
-                    title: 'List',
-                    icon: 'fas fa-list',
-                    href: "/users"
-                }
-            ]
-        },
-        {
 
             title: 'Notices',
             icon: 'fas fa-book',
@@ -696,6 +680,18 @@ const menus = {
                     title: 'Results',
                     icon: 'fas fa-poll',
                     href: "/exams/results"
+                },
+            ]
+        },
+        {
+            title: 'Children',
+            icon: 'fas fa-child',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/children"
                 },
             ]
         },

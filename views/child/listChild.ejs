@@ -1,9 +1,10 @@
 <%- include('../partials/_top', {title:'Children List', current_menu : {parent: 'Children', child: 'List'} }) %>
 <section class="content">
     <div class="container-fluid">
-
-
     <div class="row">
+      <% if (students.length == 0) { %>
+        <h5>No students has been registed as your children. Please contact admin</h5>
+      <% } %>
       <% students.forEach( item => { %>
         <div class="col-lg-3 col-6">
           <!-- Profile Image -->

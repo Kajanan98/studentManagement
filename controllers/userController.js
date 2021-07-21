@@ -31,7 +31,8 @@ const listAllPrincipal = async (req, res) => {
         teachers: false,
         students: false,
         parents: false,
-        title: 'View Principal'
+        title: 'View Principal',
+        child: 'View Principal'
     })
 }
 
@@ -42,7 +43,8 @@ const listAllTeacher = async (req, res) => {
         teachers,
         students: false,
         parents: false,
-        title: 'View Teachers'
+        title: 'View Teachers',
+        child: 'View Teachers'
     })
 }
 
@@ -53,7 +55,8 @@ const listAllStudent = async (req, res) => {
         teachers: false,
         students,
         parents: false,
-        title: 'View Students'
+        title: 'View Students',
+        child: 'View Students'
     })
 }
 
@@ -64,7 +67,8 @@ const listAllParent = async (req, res) => {
         teachers: false,
         students: false,
         parents,
-        title: 'View Parents'
+        title: 'View Parents',
+        child: 'View Parents'
     })
 }
 
