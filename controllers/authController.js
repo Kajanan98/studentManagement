@@ -14,40 +14,31 @@ const viewLogin = async (req, res) => {
 }
 
 const authenticate = async (username, password, done) => {
-    if (username === 'admin') {
-        if (password === 'admin') {
-            const user = { name: 'Admin', type: 'principal' }
-            return done(null, user);
+    try {
+        const user = await User.findByUsername(username);
+        if (user) {
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) {
+                    throw err;
+                }
+                if (isMatch) {
+                    return done(null, user);
+                } else {
+                    //password is incorrect
+                    return done(null, false, { message: "Password is incorrect" });
+                }
+            });
         } else {
-            return done(null, false, { message: "Password is incorrect" });
-        }
-    } else {
-        try {
-            const user = await User.findByUsername(username);
-            if (user) {
-                bcrypt.compare(password, user.password, (err, isMatch) => {
-                    if (err) {
-                        throw err;
-                    }
-                    if (isMatch) {
-                        return done(null, user);
-                    } else {
-                        //password is incorrect
-                        return done(null, false, { message: "Password is incorrect" });
-                    }
-                });
-            } else {
-                // No user
-                return done(null, false, {
-                    message: "No user with that username"
-                });
-            }
-
-        } catch (err) {
+            // No user
             return done(null, false, {
-                message: "Login Error"
+                message: "No user with that username"
             });
         }
+
+    } catch (err) {
+        return done(null, false, {
+            message: "Login Error"
+        });
     }
 }
 
