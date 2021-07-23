@@ -81,15 +81,15 @@ const manage = (req, res) => {
 }
 
 const addTeacher = (req, res) => {
-    res.render('users/newUser', { userType: 'teacher', data: false, title: 'Add Teacher' })
+    res.render('users/newUser', { userType: 'teacher', data: false, title: 'Add Teacher', child: 'Add Teacher' })
 }
 
 const addStudent = (req, res) => {
-    res.render('users/newUser', { userType: 'student', data: false, title: 'Add Student' })
+    res.render('users/newUser', { userType: 'student', data: false, title: 'Add Student', child: 'Add Student' })
 }
 
 const addParent = (req, res) => {
-    res.render('users/newUser', { userType: 'parent', data: false, title: 'Add Parent' })
+    res.render('users/newUser', { userType: 'parent', data: false, title: 'Add Parent', child: 'Add Parent' })
 }
 
 const createUser = async (req, res) => {

@@ -1,0 +1,107 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Exams", current_menu : {parent: 'Reports', child: 'Class Results' } }) %>
+<!-- header-section end -->
+<style>
+  @media print {
+    .card.card-primary {
+      font-family:georgia, times, serif;
+    }
+    .main-footer, .card-footer {
+      display: none;
+    }
+  }
+</style>
+<div class="card card-primary m-3">
+    <div class="card-header">
+      <h3 class="card-title">Exam Class Rport</h3>
+    </div>
+    <div class="card-body">
+        <h6>Class Detail</h6>
+        <div class="row">
+            <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted">Title</span>
+                    <span class="info-box-number text-center text-muted mb-0"><%= data.title %></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted">Description</span>
+                    <span class="info-box-number text-center text-muted mb-0"><%= data.description %></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted">Class Teacher</span>
+                    <span class="info-box-number text-center text-muted mb-0"><%= data.classTeacher.name %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% data.exams.forEach(exam => { %>
+    <div class="card card-primary m-3">
+        <!-- /.card-header -->
+        <div class="card-body">
+          <h6>Exam Detail</h6>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Date</span>
+                      <span class="info-box-number text-center text-muted mb-0"><%= moment(exam.date).format("MM/DD/YYYY hh:mm") %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Subject</span>
+                      <span class="info-box-number text-center text-muted mb-0"><%= exam.subject %></span>
+                    </div>
+                  </div>
+                </div>
+          </div>
+    
+          <h6>Results</h6>
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 40px">#</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var count = 1; %>
+              <% exam.results.forEach( row => { %>
+                <tr data-id="<%= row.id %>">
+                  <td><%= count++ %></td>
+                  <td><%= row.name %></td>
+                  <td><%= row.username %></td>
+                  <td><%= row.result %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+<% }) %>
+
+<div class="card card-primary m-3">
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" onclick="window.print()">Print Report</button>
+    </div>
+</div>
+
+<%- include('../partials/_bottom') %>

@@ -35,6 +35,9 @@
 <% if(teachers){ %> 
 
     <div class="row">
+      <% if ( teachers.length == 0 ) { %>
+        <h5>No teacher account found</h5>
+      <% } %>
       <% teachers.forEach( item => { %>
         <div class="col-lg-3 col-6">
           <!-- Profile Image -->
@@ -67,6 +70,9 @@
     <% if(students){ %> 
 
       <div class="row">
+        <% if ( students.length == 0 ) { %>
+          <h5>No student account found</h5>
+        <% } %>
         <% students.forEach( item => { %>
           <div class="col-lg-3 col-6">
             <!-- Profile Image -->
@@ -101,6 +107,9 @@
       <% if(parents){ %> 
 
         <div class="row">
+          <% if ( parents.length == 0 ) { %>
+            <h5>No parent account found</h5>
+          <% } %>
           <% parents.forEach( item => { %>
             <div class="col-lg-3 col-6">
               <!-- Profile Image -->

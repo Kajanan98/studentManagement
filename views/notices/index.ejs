@@ -11,6 +11,9 @@
         <div class="col-md-12">
           <!-- The time line -->
           <div class="timeline">
+            <% if ( data.length == 0 ) { %>
+              <h5>No notice found</h5>
+            <% } %>
             <% data.forEach( notice => { %>
               <!-- timeline time label -->
               <div class="time-label">
@@ -30,9 +33,11 @@
               </div>
               <!-- END timeline item -->
             <% }) %>
-            <div>
-              <i class="fas fa-clock bg-gray"></i>
-            </div>
+            <% if ( data.length > 0 ) { %>
+              <div>
+                <i class="fas fa-clock bg-gray"></i>
+              </div>
+            <% } %>
           </div>
         </div>
         <!-- /.col -->

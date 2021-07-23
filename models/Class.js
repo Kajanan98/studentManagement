@@ -552,3 +552,81 @@ exports.listAllWithSubTeachers = () => {
         },
     ])
 }
+
+exports.findWIthExams = (classId) => {
+    return Class.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(classId)
+            }
+        },
+        {
+            $lookup: {
+                from: 'exams',
+                localField: '_id',
+                foreignField: 'classId',
+                as: 'exams'
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'exams.results.studentId',
+                foreignField: '_id',
+                as: 'students'
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'classTeacher',
+                foreignField: '_id',
+                as: '_classTeacher'
+            }
+        },
+        {
+            $addFields: {
+                exams: {
+                    $map: {
+                        input: '$exams',
+                        as: 'exam',
+                        in: {
+                            $mergeObjects: [
+                                "$$exam",
+                                {
+                                    results: {
+                                        $map: {
+                                            input: "$$exam.results",
+                                            as: "res",
+                                            in: {
+                                                $mergeObjects: [
+                                                    {
+                                                        $arrayElemAt: [
+                                                            { $filter: { input: "$students", cond: { $eq: ["$$this._id", "$$res.studentId"] } } }
+                                                            , 0
+                                                        ]
+                                                    },
+                                                    "$$res"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $addFields: {
+                classTeacher: {
+                    $arrayElemAt: [
+                        "$_classTeacher"
+                        , 0
+                    ]
+                }
+            }
+        }
+    ])
+}

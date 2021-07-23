@@ -34,9 +34,28 @@ const findWithResultReport = (req, res) => {
         .catch(console.log)
 }
 
+const viewClassReportSelect = (req, res) => {
+    Class.listAll()
+        .then(data => {
+            res.render('selectClass', { data, parent: 'Reports', child: 'Class Results', link: '/reports/classResults/' })
+        })
+        .catch(console.log)
+}
+
+const viewClassReport = (req, res) => {
+    const { classId } = req.params;
+    Class.findWIthExams(classId)
+        .then(([data]) => {
+            res.render('reports/classReport', { data, moment })
+        })
+        .catch(console.log)
+}
+
 module.exports = {
     resultSelectExamReport,
     findWithResultReport,
     viewAttendanceClassReport,
     viewAttendanceReport,
+    viewClassReportSelect,
+    viewClassReport,
 }

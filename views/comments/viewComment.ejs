@@ -20,6 +20,9 @@
 
     <hr>
     <div class="card-columns">
+      <% if ( data.length == 0 ) { %>
+        <h5>No comments found</h5>
+      <% } %>
       <% data.forEach(function(datas){%>
         <div class="card p-3">
           <blockquote class="blockquote mb-0 card-body">

@@ -228,16 +228,15 @@ const menus = {
                     href: "/reports/attendances"
                 },
                 {
+                    title: 'Class Results',
+                    icon: 'fas fa-list',
+                    href: "/reports/classResults"
+                },
+                {
                     title: 'Exam Results',
                     icon: 'fas fa-poll',
                     href: "/reports/results"
                 },
-                {
-                    title: 'Class Wise Results',
-                    icon: 'fas fa-list',
-                    href: "/reports/resultsForClasses"
-                },
-
             ]
         },
         {
@@ -461,6 +460,11 @@ const menus = {
                     title: 'Attendances',
                     icon: 'fas fa-calendar-alt',
                     href: "/reports/attendances"
+                },
+                {
+                    title: 'Class Results',
+                    icon: 'fas fa-list',
+                    href: "/reports/classResults"
                 },
                 {
                     title: 'Exam Results',
