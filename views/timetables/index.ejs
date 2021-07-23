@@ -8,29 +8,24 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <table id="example1" class="table table-bordered table-striped">
+      <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th style="width: 40px"></th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thurs</th>
-            <th>Fri</th>
-            <th>Sat</th>
-            <th>Sun</th>
+            <th>Teacher</th>
+            <% for (let i=1; i<9;i++) { %>
+              <th>Period <%=i%></th>
+            <% } %>
           </tr>
         </thead>
         <tbody>
-          <% data.forEach( row => { %>
-            <tr data-id="<%= row.id %>">
-              <td><%= row.period %></td>
-              <td><%= row.title %></td>
-              <td><%= row.description %></td>
-              <td><%= row %></td>
-              <td class="text-center">
-                <a href="/classes/timetable/<%= row._id %>"><i class="fas fa-arrow-right"></i></a>
-              </td>
+          <% teacherTimeTable.forEach( row => { %>
+            <tr>
+              <td><%= row.teacherInfo.name %></td>
+              <% for (let i=1; i<9;i++) { %>
+                <% let timeTable = row.timeTable.find(tt => tt.period===i) 
+                %>
+                <td><%= timeTable ? timeTable.title : '' %></td>
+              <% } %>
             </tr>
           <% }) %>
         </tbody>
@@ -85,12 +80,3 @@
 <script src="/plugins/pdfmake/vfs_fonts.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-  </script>

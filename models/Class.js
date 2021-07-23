@@ -553,6 +553,53 @@ exports.listAllWithSubTeachers = () => {
     ])
 }
 
+exports.timeTableForTeacher = () => {
+    return Class.aggregate([
+        {
+            $unwind: '$timeTable'
+        },
+        {
+            $sort: {
+                "timeTable.period": 1
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'timeTable.teacher',
+                foreignField: '_id',
+                as: 'teacherInfo'
+            }
+        },
+        {
+            $project: {
+                title: 1,
+                timeTable: 1,
+                teacherInfo: {
+                    $arrayElemAt: [
+                        '$teacherInfo', 0
+                    ]
+                }
+            }
+        },
+        {
+            $group: {
+                _id: '$timeTable.teacher',
+                teacherInfo: {
+                    $first: "$teacherInfo"
+                },
+                timeTable: {
+                    $push: {
+                        $mergeObjects: [
+                            '$timeTable', { title: "$title" },
+                        ]
+                    }
+                }
+            }
+        }
+    ])
+}
+
 exports.findWIthExams = (classId) => {
     return Class.aggregate([
         {
@@ -629,4 +676,8 @@ exports.findWIthExams = (classId) => {
             }
         }
     ])
+}
+
+exports.getAddedStudents = () => {
+    return Class.distinct('students.userId')
 }

@@ -68,7 +68,7 @@
             </table>
         </div>
         <form method="post" action="<%='/classes/addStudent/'+data._id %>">
-            <% const restStudents = students.filter(student => !data.students.find( classStudent => classStudent.userId.toString() == student._id.toString() )); %>
+            <% restStudents = students.filter(student => !addedStudents.find( addedStudent => addedStudent.toString() == student._id.toString() )); %>
             <% if(restStudents.length == 0){%>
                 <div class="form-group">
                     <label>No more students to add</label>

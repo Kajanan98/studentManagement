@@ -1,5 +1,5 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Manage User", current_menu : {parent: 'Users', child } }) %>
+<%- include('../partials/_top', {title:"Manage User", current_menu : {parent: 'Users', child: 'Manage' } }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
@@ -23,19 +23,25 @@
             <input type="text" class="form-control" id="mobilenumber" name="mobile_number" placeholder="Mobile Number" value="<%= data !== false ? data.mobile : '' %>">
         </div>
         <div class="form-group">
-            <label for="nic">NIC</label>
-            <input type="text" class="form-control" id="nic" name="nic" placeholder="Enter NIC" value="<%= data !== false ? data.NIC : '' %>" required>
+            <label for="nic">
+                <%= userType==='student' ? 'Student Id' : "NIC" %>
+            </label>
+            <input type="text" class="form-control" id="nic" name="nic" placeholder="<%= userType==='student'? studentId : 'Enter NIC' %>" value="<%= data !== false ? data.NIC : userType==='student'? studentId : '' %>" required>
         </div>
         <% if(data==false){ %>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="user_name" placeholder="Enter User Name" value="<%= data !== false ? data.username : '' %>" required>
-        </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="user_name" placeholder="Enter User Name" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Confirm Password</label>
+                <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" required>
+            </div>
         <% } %>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="<%= data !== false ? data.password : '' %>" required>
-        </div>
         <input type="hidden" name="type" value="<%= userType %>">
     </div>
     <!-- /.card-body -->

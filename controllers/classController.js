@@ -26,9 +26,10 @@ const viewEidtPage = (req, res) => {
     const { id } = req.params;
     Class.findOne(id)
         .then(async result => {
+            const addedStudents = await Class.getAddedStudents()
             const students = await User.getStudents();
             const teachers = await User.getTeachers();
-            res.render('classes/edit', { data: result, students, teachers })
+            res.render('classes/edit', { data: result, students, teachers, addedStudents })
         })
         .catch(console.log)
 }

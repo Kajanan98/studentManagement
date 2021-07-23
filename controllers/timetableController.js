@@ -11,8 +11,9 @@ const timetableSelectClass = (req, res) => {
 
 const viewTimeTable = (req, res) => {
     Class.listAllWithSubTeachers()
-        .then(data => {
-            res.render('timetables', { data });
+        .then(async data => {
+            const teacherTimeTable = await Class.timeTableForTeacher()
+            res.render('timetables', { data, teacherTimeTable });
         })
         .catch(console.log)
 }

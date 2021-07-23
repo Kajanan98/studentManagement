@@ -84,8 +84,9 @@ const addTeacher = (req, res) => {
     res.render('users/newUser', { userType: 'teacher', data: false, title: 'Add Teacher', child: 'Add Teacher' })
 }
 
-const addStudent = (req, res) => {
-    res.render('users/newUser', { userType: 'student', data: false, title: 'Add Student', child: 'Add Student' })
+const addStudent = async (req, res) => {
+    const studentId = await User.getLastStudentId()
+    res.render('users/newUser', { userType: 'student', studentId, data: false, title: 'Add Student', child: 'Add Student' })
 }
 
 const addParent = (req, res) => {
@@ -99,23 +100,29 @@ const createUser = async (req, res) => {
     const NIC = req.body.nic;
     const username = req.body.user_name;
     const password = req.body.password;
+    const cpassword = req.body.cpassword;
     const type = req.body.type;
     const hashedPassword = await bcrypt.hash(password, 10);
-    User.createUser(name, address, mobile, NIC, username, hashedPassword, type)
-        .then(result => {
-            res.redirect('/users/manage');
-        })
-        .catch(console.log)
+    if (password === cpassword) {
+        User.createUser(name, address, mobile, NIC, username, hashedPassword, type)
+            .then(result => {
+                res.redirect('/users/manage');
+            })
+            .catch(console.log)
+    } else {
+        res.render('error', { message: 'Password and Confirm password not match', parent: 'Users', child: 'Manage' })
+    }
 }
 
 const findOne = (req, res) => {
     const id = req.params.id;
     User.getUserByID(id)
-        .then(result => {
-            console.log(result);
+        .then(data => {
+            const userType = data.type;
             res.render('users/newUser', {
                 title: 'Edit User',
-                data: result
+                data,
+                userType
             })
         })
         .catch(console.log)
@@ -143,11 +150,8 @@ const updateUser = (req, res) => {
     const address = req.body.address;
     const mobile = req.body.mobile_number;
     const NIC = req.body.nic;
-    const password = req.body.password;
-    const type = req.body.type;
-    User.updateUser(id, name, address, mobile, NIC, password, type)
+    User.updateUser(id, name, address, mobile, NIC)
         .then(result => {
-
             res.redirect('/users/manage')
         })
         .catch(console.log);
