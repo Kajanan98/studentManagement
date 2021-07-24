@@ -252,6 +252,24 @@ const menus = {
 
             ]
         },
+        {
+            title: 'Extracurricular Activity',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/view"
+                },
+                {
+                    title: 'Add Extracurricular Activity',
+                    icon: 'fas fa-plus',
+                    href: "/activities/new"
+                },
+
+            ]
+        },
     ],
     teacher: [
         {
@@ -487,6 +505,24 @@ const menus = {
 
             ]
         },
+        {
+            title: 'Extracurricular Activity',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/view"
+                },
+                {
+                    title: 'Add Extracurricular Activity',
+                    icon: 'fas fa-plus',
+                    href: "/activities/new"
+                },
+
+            ]
+        },
     ],
     student: [
         {
@@ -585,6 +621,19 @@ const menus = {
                     icon: 'fas fa-poll',
                     href: "/exams/results"
                 },
+            ]
+        },
+        {
+            title: 'Extracurricular Activity',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/viewStudent"
+                },
+
             ]
         },
     ],

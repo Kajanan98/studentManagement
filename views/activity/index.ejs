@@ -1,0 +1,59 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"View Extracurricular Activity", current_menu : {parent: 'Extracurricular Activity', child: 'List'} }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+      <h3 class="card-title">Extracurricular Activities </h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 40px">#</th>
+            <th>Date</th>
+            <th>Content</th>
+            <th>Author Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var count = 1; %>
+          <% data.forEach( row => { %>
+            <tr data-id="<%= row.id %>">
+              <td><%= count++ %></td>
+              <td><%= moment(row.date).format('YYYY-MM-DD / HH:mm') %></td>
+              <td><%= row.content %></td>
+              <td><%= row.authorDetail.name %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>
+
+<!-- DataTables  & Plugins -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/plugins/jszip/jszip.min.js"></script>
+<script src="/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+
+<script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+  </script>
