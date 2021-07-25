@@ -34,5 +34,6 @@ router.use('/notices', require('./notices'))
 router.use('/comments', require('./comment'))
 router.use('/reports', require('./reports'))
 router.use('/children', require('./children'))
+router.use('/activities', require('./activities'))
 
 module.exports = router
