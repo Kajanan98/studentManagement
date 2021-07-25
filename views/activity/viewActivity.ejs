@@ -15,9 +15,8 @@
             <th>Date</th>
             <th>Content</th>
             <th>Student Name</th>
-            
+            <th>Issued By</th>
             <th style="width: 120px" class="text-center">Action</th>
-            
           </tr>
         </thead>
         <tbody>
@@ -25,15 +24,14 @@
           <% data.forEach( row => { %>
             <tr data-id="<%= row.id %>">
               <td><%= count++ %></td>
-              <td><%= moment(row.date).format('YYYY-MM-DD / HH:mm') %></td>
+              <td><%= moment(row.date).format('YYYY-MM-DD') %></td>
               <td><%= row.content %></td>
               <td><%= row.studentDetail.name %></td>
-              
+              <td><%= row.authorDetail.name %></td>
               <td class="text-center">
                 <a href="/activities/edit/<%= row._id %>"><i class="fas fa-edit"></i></a>
                 <a href="/activities/delete/<%= row._id %>"><i class="fas fa-trash-alt"></i></a>
               </td>
-              
             </tr>
           <% }) %>
         </tbody>

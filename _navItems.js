@@ -30,11 +30,6 @@ const menus = {
             icon: 'fas fa-users',
             href: "#",
             children: [
-                // {
-                //     title: 'List',
-                //     icon: 'fas fa-list',
-                //     href: "/users"
-                // },
                 {
                     title: 'View Principal',
                     icon: 'fas fa-user',
@@ -107,14 +102,9 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
+                    title: 'Comments',
                     icon: 'fas fa-list',
                     href: "/comments/1"
-                },
-                {
-                    title: 'Add Comment',
-                    icon: 'fas fa-plus',
-                    href: "/comments/new"
                 },
 
             ]
@@ -359,14 +349,9 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
+                    title: 'Comments',
                     icon: 'fas fa-list',
                     href: "/comments/1"
-                },
-                {
-                    title: 'Add Comment',
-                    icon: 'fas fa-plus',
-                    href: "/comments/new"
                 },
 
             ]
@@ -570,16 +555,10 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
+                    title: 'Comments',
                     icon: 'fas fa-list',
                     href: "/comments/1"
                 },
-                {
-                    title: 'Add Comment',
-                    icon: 'fas fa-plus',
-                    href: "/comments/new"
-                },
-
             ]
         },
         {
@@ -683,16 +662,10 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'List',
+                    title: 'Comments',
                     icon: 'fas fa-list',
                     href: "/comments/1"
                 },
-                {
-                    title: 'Add Comment',
-                    icon: 'fas fa-plus',
-                    href: "/comments/new"
-                },
-
             ]
         },
         {

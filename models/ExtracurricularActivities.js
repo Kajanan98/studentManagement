@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const ExtracurricularActivityShema = new mongoose.Schema ({
+const ExtracurricularActivityShema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
@@ -19,18 +19,18 @@ const ExtracurricularActivityShema = new mongoose.Schema ({
     }
 })
 
-const ExtracurricularActivity = mongoose.model('Extracurricularactivity',ExtracurricularActivityShema)
+const ExtracurricularActivity = mongoose.model('Extracurricularactivity', ExtracurricularActivityShema)
 
-exports.addExtracurricularActivity = (author, towhom, content) => {
-    const extracurricularActivity = new ExtracurricularActivity({ author, towhom, content });
+exports.addExtracurricularActivity = (author, towhom, content, date) => {
+    const extracurricularActivity = new ExtracurricularActivity({ author, towhom, content, date });
     return extracurricularActivity.save()
 }
 
-exports.updateExtracurricularActivity = (id, content) => {
+exports.updateExtracurricularActivity = (id, towhom, content, date) => {
     return ExtracurricularActivity.updateOne(
         { _id: id },
         {
-            $set: { id, content }
+            $set: { id, towhom, content, date }
         }
     )
 }
@@ -43,13 +43,10 @@ exports.deleteOne = (_id) => {
     return ExtracurricularActivity.findOneAndDelete({ _id })
 }
 
-exports.getActivity = (id) => {
+exports.getAllActivities = () => {
     return ExtracurricularActivity.aggregate([
         {
-            $match: {author:mongoose.Types.ObjectId(id)} 
-        },
-        {
-            $lookup:{
+            $lookup: {
                 from: "users",
                 localField: "towhom",
                 foreignField: "_id",
@@ -57,10 +54,17 @@ exports.getActivity = (id) => {
             }
         },
         {
-            $project: {
-                date:1,
-                content:1,
-                studentDetail:{ $arrayElemAt: [ "$studentDetail", 0 ] },
+            $lookup: {
+                from: "users",
+                localField: "author",
+                foreignField: "_id",
+                as: "authorDetail"
+            }
+        },
+        {
+            $addFields: {
+                studentDetail: { $arrayElemAt: ["$studentDetail", 0] },
+                authorDetail: { $arrayElemAt: ["$authorDetail", 0] },
             }
         }
     ])
@@ -69,10 +73,10 @@ exports.getActivity = (id) => {
 exports.getStudentActivity = (id) => {
     return ExtracurricularActivity.aggregate([
         {
-            $match: {towhom:mongoose.Types.ObjectId(id)} 
+            $match: { towhom: mongoose.Types.ObjectId(id) }
         },
         {
-            $lookup:{
+            $lookup: {
                 from: "users",
                 localField: "author",
                 foreignField: "_id",
@@ -81,9 +85,9 @@ exports.getStudentActivity = (id) => {
         },
         {
             $project: {
-                date:1,
-                content:1,
-                authorDetail:{ $arrayElemAt: [ "$authorDetail", 0 ] },
+                date: 1,
+                content: 1,
+                authorDetail: { $arrayElemAt: ["$authorDetail", 0] },
             }
         }
     ])

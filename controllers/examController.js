@@ -83,7 +83,7 @@ const findWithResult = (req, res) => {
 const addResultSelectExam = (req, res) => {
     Exam.listAll()
         .then(data => {
-            res.render('exams/selectExam', { data, moment, child: 'Add Result', link: '/exams/addResult/' });
+            res.render('exams/selectExam', { data, moment, child: 'Add Result', parent: 'Exams', link: '/exams/addResult/' });
         })
         .catch(console.log)
 }
