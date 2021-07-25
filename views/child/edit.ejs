@@ -1,32 +1,16 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Edit Children", current_menu : {parent: 'Children', child: 'Add Children'} }) %>
+<%- include('../partials/_top', {title:"Edit Children", current_menu : {parent: 'Children', child: 'Manage'} }) %>
 <!-- header-section end -->
 
 
 <!-- details start -->
 <form method="post" action="<%='/children/edit/'+data._id %>">
     <div class="card card-primary m-3">
-        <div class="card-header">
-            <h3 class="card-title">Children Details</h3>
-        </div>
         <!-- /.card-header -->
         <div class="card-body">
-            
-            
-            <div class="form-group">
-                <label for="parent">Parent</label>
-                <select class="form-control" id="parent" name="parent" >
-                    <% parents.forEach(function(parent){%>
-                        <option value="<%= parent._id %>" <%= (data.parent.toString()===parent._id.toString())?'selected':'' %>><%= parent.name %> - <%= parent.username %></option>
-                    <%})%>
-                </select>
-            </div>
+            <h3 class="card-title">Children Details of <%= data.name %></h3>
         </div>
         <!-- /.card-body -->
-
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
     </div>
     <!-- /.card -->
 </form>
@@ -35,34 +19,34 @@
 <!-- Students start -->
 <div class="card card-primary m-3">
     <div class="card-header">
-        <h3 class="card-title"> Students</h3>
+        <h3 class="card-title">Students</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
         <div class="form-group">
             <label for="students">Students</label>
             <table>
-                <% data.children.forEach(function(classStudent){%>
+                <% data.children.forEach(function(child){%>
                     <tr>
-                        <% classStudentDetail = students.find( student => student._id.toString() === classStudent.studentId.toString() ) %>
-                        <td style="padding: 0 15px"><%= classStudentDetail.name %></td>
-                        <td style="padding: 0 15px"><%= classStudentDetail.username %></td>
+                        <% studentDetail = students.find( student => student._id.toString() === child.toString() ) %>
+                        <td style="padding: 0 15px"><%= studentDetail.name %></td>
+                        <td style="padding: 0 15px"><%= studentDetail.username %></td>
                         <td style="padding: 0 15px">
-                            <form method="post" action="<%='/children/removeStudent/'+data._id %>">
-                                <button type="submit" name="studentId" value="<%= classStudent.studentId %>" class="btn btn-primary">Remove</button>
+                            <form method="post" action="<%='/children/removeStudent/'+data._id+'/'+child %>">
+                                <button type="submit" class="btn btn-primary">Remove</button>
                             </form>
                         </td>
                     </tr>
                 <%})%>
                 <% if(data.children.length == 0){%>
                     <tr>
-                        <td>No Students</td>
+                        <td>No child added</td>
                     </tr>
                 <%}%>
             </table>
         </div>
         <form method="post" action="<%='/children/addStudent/'+data._id %>">
-            <% const restStudents = students.filter(student => !data.children.find( classStudent => classStudent.studentId.toString() == student._id.toString() )); %>
+            <% const restStudents = students.filter(student => !data.children.find( child => child.toString() == student._id.toString() )); %>
             <% if(restStudents.length == 0){%>
                 <div class="form-group">
                     <label>No more students to add</label>
@@ -70,7 +54,7 @@
             <%} else { %>
                 <div class="form-group">
                     <label for="students">Add Student</label>
-                    <select class="form-control" id="students" name="studentId">
+                    <select class="form-control" id="students" name="child">
                         <% restStudents.forEach(function(user){%>
                             <option value="<%= user._id %>"><%= user.name %> - <%= user.username %></option>
                         <%})%>

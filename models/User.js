@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['principal', 'teacher', 'student', 'parent'],
         default: 'student'
     },
+    children: [mongoose.Schema.Types.ObjectId]
 })
 
 const User = mongoose.model('User', UserSchema);
@@ -151,6 +152,50 @@ exports.getDashBoard = () => {
                 count: {
                     "$sum": 1
                 }
+            }
+        }
+    ])
+}
+
+exports.addChild = (parent, child) => {
+    return User.updateOne(
+        { _id: parent },
+        {
+            $push: {
+                children: child
+            }
+        }
+    )
+}
+
+exports.removeChild = (parent, child) => {
+    return User.updateOne(
+        { _id: parent },
+        {
+            $pull: {
+                children: child
+            }
+        }
+    )
+}
+
+exports.getAddedChildren = () => {
+    return User.distinct('children')
+}
+
+exports.getChildren = parentId => {
+    return User.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(parentId)
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'children',
+                foreignField: '_id',
+                as: 'children'
             }
         }
     ])

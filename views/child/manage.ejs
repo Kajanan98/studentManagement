@@ -1,0 +1,31 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title: "Parents", current_menu : {parent: 'Children', child: 'Manage' } }) %>
+<!-- header-section end -->
+
+<div class="card card-primary m-3">
+    <div class="card-header">
+      <h3 class="card-title">Parents</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <tbody>
+          <% var count = 1; %>
+          <% data.forEach( row => { %>
+            <tr data-id="<%= row.id %>">
+                <td style="width: 40px"><%= count++ %></td>
+                <td>
+                    <a href="<%=link + row._id + ((typeof(linkPostfix)!=="undefined")?linkPostfix:'') %>">
+                        <%= row.name %>
+                    </a>
+                </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<%- include('../partials/_bottom') %>

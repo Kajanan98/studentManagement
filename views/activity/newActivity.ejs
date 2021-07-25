@@ -1,5 +1,5 @@
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Add Extracurricular Activity", current_menu : {parent: 'Extracurricular Activity', child: 'Add Extracurricular Activity'} }) %>
+<%- include('../partials/_top', {title: title1, current_menu : {parent, child: 'Add Extracurricular Activity'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
@@ -9,42 +9,44 @@
     <!-- /.card-header -->
     <!-- form start -->
     <form method="post" action="<%=(data == false ) ? '/activities/new' : '/activities/editSubmit/'+data._id %>">
-    <div class="card-body">
-        <div class="form-group">
-            <label for="content">Date</label>
-            <div class="input-group date" data-target-input="nearest">
-                <input type="text" name="date" value="<%= data !== false ?  moment(data.date).format("MM/DD/YYYY") : '' %>" id="reservationdate" class="form-control datetimepicker-input" data-target="#reservationdate" data-toggle="datetimepicker" autocomplete="off"/>
-                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="content">Date</label>
+                <div class="input-group date" data-target-input="nearest">
+                    <input type="text" name="date" value="<%= data !== false ?  moment(data.date).format("MM/DD/YYYY") : '' %>" id="reservationdate" class="form-control datetimepicker-input" data-target="#reservationdate" data-toggle="datetimepicker" autocomplete="off"/>
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea type="text" class="form-control" rows='8' id="content" name="content"><%= data !== false ? data.content : '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="towhom">Student</label>
+                <select class="form-control" id="towhom" name="towhom">
+                    <% if(data){ %> 
+                    <% students.forEach(function(user){%>
+                        <option value="<%= user._id %>" <%=(data.towhom.equals(user._id)) ? 'selected':'' %> ><%= user.name %> - <%= user.username %></option>
+                    <% }) %>
+                    <% } %> 
+                    <% students.forEach(function(user){%>
+                        <option value="<%= user._id %>"  ><%= user.name %> - <%= user.username %></option>
+                    <% }) %>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="content">Content</label>
-            <textarea type="text" class="form-control" rows='8' id="content" name="content"><%= data !== false ? data.content : '' %></textarea>
-        </div>
-        <div class="form-group">
-            <label for="towhom">Student</label>
-            <select class="form-control" id="towhom" name="towhom">
-                <% if(data){ %> 
-                <% students.forEach(function(user){%>
-                    <option value="<%= user._id %>" <%=(data.towhom.equals(user._id)) ? 'selected':'' %> ><%= user.name %> - <%= user.username %></option>
-                <% }) %>
-                <% } %> 
-                <% students.forEach(function(user){%>
-                    <option value="<%= user._id %>"  ><%= user.name %> - <%= user.username %></option>
-                <% }) %>
-            </select>
-        </div>
-    </div>
-    <!-- /.card-body -->
+        <!-- /.card-body -->
 
-    <div class="card-footer">
-        <% if(data!=false){ %>
-            <input type="hidden" name="id" value="<%= data._id %>">
-        <% } %>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+        <div class="card-footer">
+            <% if(data!=false){ %>
+                <input type="hidden" name="id" value="<%= data._id %>">
+            <% } else { %>
+                <input type="hidden" name="type" value="<%= acType %>">
+            <% } %>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </div>
 <!-- /.card -->

@@ -1,5 +1,7 @@
 const Exam = require('../models/Exam');
+const User = require('../models/User');
 const Class = require('../models/Class');
+const Activity = require('../models/ExtracurricularActivities')
 const moment = require('moment')
 
 const viewAttendanceClassReport = (req, res) => {
@@ -51,6 +53,26 @@ const viewClassReport = (req, res) => {
         .catch(console.log)
 }
 
+const listAllStudent = async (req, res) => {
+    const students = await User.getStudents();
+    res.render('reports', {
+        students,
+    })
+}
+
+const viewStudent = (req, res) => {
+    const { studentId } = req.params;
+    User.getUserByID(studentId)
+        .then(async data => {
+            const exams = await Exam.findForStudent(studentId)
+            const attendances = await Class.attendanceForStudent(studentId)
+            const activities = await Activity.getStudentActivity(studentId)
+            data.initials = data.name.split(" ").map((n) => n[0]).join("");;
+            res.render('reports/viewStudent', { data, exams, attendances, activities: activities.filter(act => act.type === 'activity'), punishments: activities.filter(act => act.type === 'punishment'), moment })
+        })
+        .catch(console.log);
+}
+
 module.exports = {
     resultSelectExamReport,
     findWithResultReport,
@@ -58,4 +80,6 @@ module.exports = {
     viewAttendanceReport,
     viewClassReportSelect,
     viewClassReport,
+    listAllStudent,
+    viewStudent
 }

@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Exam = require('../models/Exam')
 const Class = require('../models/Class')
+const Activity = require('../models/ExtracurricularActivities')
 const bcrypt = require('bcrypt');
 const moment = require('moment')
 
@@ -223,8 +224,9 @@ const viewStudent = (req, res) => {
         .then(async data => {
             const exams = await Exam.findForStudent(studentId)
             const attendances = await Class.attendanceForStudent(studentId)
+            const activities = await Activity.getStudentActivity(studentId)
             data.initials = data.name.split(" ").map((n) => n[0]).join("");;
-            res.render('users/viewStudent', { data, exams, attendances, moment })
+            res.render('users/viewStudent', { data, exams, attendances, activities: activities.filter(act => act.type === 'activity'), punishments: activities.filter(act => act.type === 'punishment'), moment })
         })
         .catch(console.log);
 }

@@ -1,0 +1,203 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Student Report", current_menu : {parent: 'Reports', child: 'Students'} }) %>
+<!-- header-section end -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile">
+            <div class="text-center">
+              <div class="profile-user-img img-fluid img-circle" style="height: 100px;">
+                <span class="bg-secondary" style="    height: 100%; display: inline-block; width: 100%; border-radius: 50%; color: white; text-align: center; font-size: 50px; line-height: 1; position: relative;">
+                  <span style="top: 18px; position: relative;">
+                    <%= data.initials %>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <h3 class="profile-username text-center"><%= data.name %></h3>
+            <p class="text-muted text-center"><%= data.username %></p>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+        
+      </div>
+      <!-- /.col -->
+      <div class="col-md-9">
+        <!-- About Me Box -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">About</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <strong><i class="fas fa-id-card-alt mr-1"></i> NIC</strong>
+            <p class="text-muted">
+              <%= data.NIC %>
+            </p>
+            <hr>
+            <strong><i class="fas fa-map-marker-alt mr-1"></i> Address</strong>
+            <p class="text-muted"><%= data.address %></p>
+            <hr>
+            <strong><i class="fas fa-mobile-alt mr-1"></i> Mobile</strong>
+            <p class="text-muted"><%= data.mobile %></p>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        Exam Results
+      </div>
+      <div class="card-body">
+        <% exams.forEach( (exam, id) => { %>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="text-muted text-left "><%= id+1 %></h4>
+              <ul class="list-group list-group-unbordered mb-3" style="width: 100%;">
+                <li class="list-group-item">
+                  <b>Date</b> <a class="float-right"><%= moment(exam.date).format("MM/DD/YYYY hh:mm") %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Class</b> <a class="float-right"><%= exam.class.title %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Subject</b> <a class="float-right"><%= exam.subject %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Result</b> <a class="float-right"><%= exam.results.result %></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        Attendances
+      </div>
+      <div class="card-body">
+        <div class="timeline timeline-inverse">
+          <% attendances.forEach( attendance => { %>
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-<%= attendance.attendance?"success":"danger" %>">
+                <%= moment(attendance.date).format("MM DD YYYY") %>
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas <%= attendance.attendance?"fa-check":"fa-times" %> bg-primary"></i>
+
+              <div class="timeline-item">
+                <h3 class="timeline-header"><a href="#"><%= attendance.title %></a> <%= attendance.description %></h3>
+
+                <div class="timeline-body">
+                  Attendance - <%= attendance.attendance?'Present':'Absent' %>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+          <% }) %>
+          <div>
+            <i class="far fa-clock bg-gray"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        Extracurriculur Activities
+      </div>
+      <div class="card-body">
+        <div class="timeline timeline-inverse">
+          <% activities.forEach( activity => { %>
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-success">
+                <%= moment(activity.date).format("MM DD YYYY") %>
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-check bg-primary"></i>
+
+              <div class="timeline-item">
+                <h3 class="timeline-header"><a href="#">Extracurricular Activity</h3>
+
+                <div class="timeline-body">
+                  <%= activity.content %>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+          <% }) %>
+          <div>
+            <i class="far fa-clock bg-gray"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        Punishements
+      </div>
+      <div class="card-body">
+        <div class="timeline timeline-inverse">
+          <% punishments.forEach( punishment => { %>
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-danger">
+                <%= moment(punishment.date).format("MM DD YYYY") %>
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-times bg-primary"></i>
+
+              <div class="timeline-item">
+                <h3 class="timeline-header"><a href="#">Punishment</a></h3>
+
+                <div class="timeline-body">
+                  <%= punishment.content %>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+          <% }) %>
+          <div>
+            <i class="far fa-clock bg-gray"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-primary">
+      <div class="card-footer">
+          <button type="button" class="btn btn-primary" onclick="window.print()">Print Report</button>
+      </div>
+    </div>
+      
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/_bottom') %>

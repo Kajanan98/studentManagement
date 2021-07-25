@@ -227,6 +227,11 @@ const menus = {
                     icon: 'fas fa-poll',
                     href: "/reports/results"
                 },
+                {
+                    title: 'Students',
+                    icon: 'fas fa-users',
+                    href: "/reports/students"
+                },
             ]
         },
         {
@@ -235,11 +240,10 @@ const menus = {
             href: "#",
             children: [
                 {
-                    title: 'Add Children',
+                    title: 'Manage',
                     icon: 'fas fa-plus',
-                    href: "/children/new"
+                    href: "/children/manage"
                 },
-
             ]
         },
         {
@@ -250,12 +254,30 @@ const menus = {
                 {
                     title: 'List',
                     icon: 'fas fa-list',
-                    href: "/activities/view"
+                    href: "/activities/view/activity"
                 },
                 {
                     title: 'Add Extracurricular Activity',
                     icon: 'fas fa-plus',
-                    href: "/activities/new"
+                    href: "/activities/new/activity"
+                },
+
+            ]
+        },
+        {
+            title: 'Punishments',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/view/punishment"
+                },
+                {
+                    title: 'Add Punishment',
+                    icon: 'fas fa-plus',
+                    href: "/activities/new/punishment"
                 },
 
             ]

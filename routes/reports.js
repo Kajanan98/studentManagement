@@ -8,5 +8,7 @@ router.get('/classResults', reportsController.viewClassReportSelect)
 router.get('/classResults/:classId', reportsController.viewClassReport)
 router.get('/results', reportsController.resultSelectExamReport)
 router.get('/results/:examId', reportsController.findWithResultReport)
+router.get('/students/', reportsController.listAllStudent)
+router.get('/students/:studentId', reportsController.viewStudent)
 
 module.exports = router

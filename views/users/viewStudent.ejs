@@ -56,6 +56,8 @@
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Exam Results</a></li>
                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Attendances</a></li>
+                <li class="nav-item"><a class="nav-link" href="#activities" data-toggle="tab">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" href="#punishments" data-toggle="tab">Punishments</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -104,6 +106,70 @@
 
                           <div class="timeline-body">
                             Attendance - <%= attendance.attendance?'Present':'Absent' %>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- END timeline item -->
+                    <% }) %>
+                    <div>
+                      <i class="far fa-clock bg-gray"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="activities">
+                  <!-- The timeline -->
+                  <div class="timeline timeline-inverse">
+                    <% activities.forEach( activity => { %>
+                      <!-- timeline time label -->
+                      <div class="time-label">
+                        <span class="bg-success">
+                          <%= moment(activity.date).format("MM DD YYYY") %>
+                        </span>
+                      </div>
+                      <!-- /.timeline-label -->
+                      <!-- timeline item -->
+                      <div>
+                        <i class="fas fa-check bg-primary"></i>
+
+                        <div class="timeline-item">
+                          <h3 class="timeline-header"><a href="#">Extracurricular Activity</h3>
+
+                          <div class="timeline-body">
+                            <%= activity.content %>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- END timeline item -->
+                    <% }) %>
+                    <div>
+                      <i class="far fa-clock bg-gray"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="punishments">
+                  <!-- The timeline -->
+                  <div class="timeline timeline-inverse">
+                    <% punishments.forEach( punishment => { %>
+                      <!-- timeline time label -->
+                      <div class="time-label">
+                        <span class="bg-danger">
+                          <%= moment(punishment.date).format("MM DD YYYY") %>
+                        </span>
+                      </div>
+                      <!-- /.timeline-label -->
+                      <!-- timeline item -->
+                      <div>
+                        <i class="fas fa-times bg-primary"></i>
+
+                        <div class="timeline-item">
+                          <h3 class="timeline-header"><a href="#">Punishment</a></h3>
+
+                          <div class="timeline-body">
+                            <%= punishment.content %>
                           </div>
                         </div>
                       </div>

@@ -16,18 +16,23 @@ const ExtracurricularActivityShema = new mongoose.Schema({
     },
     content: {
         type: String
+    },
+    type: {
+        type: String,
+        enum: ['activity', 'punishment'],
+        default: 'activity'
     }
 })
 
 const ExtracurricularActivity = mongoose.model('Extracurricularactivity', ExtracurricularActivityShema)
 
-exports.addExtracurricularActivity = (author, towhom, content, date) => {
-    const extracurricularActivity = new ExtracurricularActivity({ author, towhom, content, date });
+exports.addExtracurricularActivity = (author, towhom, content, date, type) => {
+    const extracurricularActivity = new ExtracurricularActivity({ author, towhom, content, date, type });
     return extracurricularActivity.save()
 }
 
 exports.updateExtracurricularActivity = (id, towhom, content, date) => {
-    return ExtracurricularActivity.updateOne(
+    return ExtracurricularActivity.findOneAndUpdate(
         { _id: id },
         {
             $set: { id, towhom, content, date }
@@ -43,8 +48,13 @@ exports.deleteOne = (_id) => {
     return ExtracurricularActivity.findOneAndDelete({ _id })
 }
 
-exports.getAllActivities = () => {
+exports.getAllActivities = (type) => {
     return ExtracurricularActivity.aggregate([
+        {
+            $match: {
+                type
+            }
+        },
         {
             $lookup: {
                 from: "users",
@@ -87,6 +97,7 @@ exports.getStudentActivity = (id) => {
             $project: {
                 date: 1,
                 content: 1,
+                type: 1,
                 authorDetail: { $arrayElemAt: ["$authorDetail", 0] },
             }
         }
