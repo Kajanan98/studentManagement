@@ -1,7 +1,16 @@
 <!-- header-section start -->
 <%- include('../partials/_top', {title:"Student Report", current_menu : {parent: 'Reports', child: 'Students'} }) %>
 <!-- header-section end -->
-
+<style>
+  @media print {
+    .card.card-primary {
+      font-family:georgia, times, serif;
+    }
+    .main-footer, .card-footer {
+      display: none;
+    }
+  }
+</style>
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
