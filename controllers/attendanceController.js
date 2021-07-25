@@ -90,6 +90,30 @@ const updateAttendanceRecord = (req, res) => {
         .catch(console.log)
 }
 
+const forOneStudent = (req, res) => {
+    let { studentId } = req.params;
+    if (studentId === 'my') studentId = req.user._id
+    Class.attendanceForStudent(studentId)
+        .then((attendances) => {
+            res.render('attendance/forOneStudent', { attendances, moment })
+        })
+        .catch(console.log)
+}
+
+const SelectChild = (req, res) => {
+    User.getChildren(req.user._id)
+        .then(([data]) => {
+            res.render('selectChild', {
+                data: data.children,
+                moment,
+                parent: 'Attendance',
+                child: 'View',
+                link: '/attendance/forOneStudent/'
+            });
+        })
+        .catch(console.log)
+}
+
 module.exports = {
     viewAttendanceClass,
     viewAttendance,
@@ -101,4 +125,6 @@ module.exports = {
     viewEditPage,
     updateAttendanceDate,
     updateAttendanceRecord,
+    forOneStudent,
+    SelectChild,
 }

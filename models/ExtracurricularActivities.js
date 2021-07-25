@@ -80,10 +80,10 @@ exports.getAllActivities = (type) => {
     ])
 }
 
-exports.getStudentActivity = (id) => {
+exports.getStudentActivity = (id, type) => {
     return ExtracurricularActivity.aggregate([
         {
-            $match: { towhom: mongoose.Types.ObjectId(id) }
+            $match: { towhom: mongoose.Types.ObjectId(id), type }
         },
         {
             $lookup: {

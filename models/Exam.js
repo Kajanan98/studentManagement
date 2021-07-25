@@ -137,6 +137,44 @@ exports.initiateResult = (examId, studentId) => {
     })
 }
 
+exports.addResultItem = (examId, studentId, result) => {
+    return Exam.findOneAndUpdate(
+        {
+            _id: mongoose.Types.ObjectId(examId)
+        },
+        {
+            $push: {
+                results: {
+                    studentId, result
+                }
+            }
+        },
+        {
+            new: true
+        }
+    ).then(doc => {
+        return doc.results[doc.results.length - 1]
+    })
+}
+
+exports.deleteResult = (resultId) => {
+    return Exam.findOneAndUpdate(
+        {
+            'results._id': mongoose.Types.ObjectId(resultId)
+        },
+        {
+            $pull: {
+                results: {
+                    _id: resultId
+                }
+            }
+        },
+        {
+            new: true
+        }
+    )
+}
+
 exports.resultsList = () => {
     return Exam.aggregate([
         {

@@ -681,3 +681,21 @@ exports.findWIthExams = (classId) => {
 exports.getAddedStudents = () => {
     return Class.distinct('students.userId')
 }
+
+exports.getClassStudents = classId => {
+    return Class.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(classId)
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'students.userId',
+                foreignField: '_id',
+                as: 'students'
+            }
+        }
+    ])
+}

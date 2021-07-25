@@ -12,5 +12,7 @@ router.post('/add/:classId', attendanceController.markAttendance)
 router.get('/edit/:attId', attendanceController.viewEditPage)
 router.post('/editDate/:attId', attendanceController.updateAttendanceDate)
 router.get('/editRecord/:recId/:attendance/:attId', attendanceController.updateAttendanceRecord)
+router.get('/forOneStudent/:studentId', attendanceController.forOneStudent)
+router.get('/forOneStudent/', attendanceController.SelectChild)
 
 module.exports = router

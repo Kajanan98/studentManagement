@@ -86,17 +86,35 @@ const get = (req, res) => {
 }
 
 const getStudent = (req, res) => {
-    const id = req.user._id;
+    let { type, studentId } = req.params;
+    if (studentId === 'my') studentId = req.user._id;
     const userType = req.user.type;
     const Name = req.user.name;
-    ExtracurricularActivity.getStudentActivity(id)
+    ExtracurricularActivity.getStudentActivity(studentId, type)
         .then(result => {
             res.render('activity/', {
                 data: result,
                 name: Name,
                 moment,
+                title: type === 'activity' ? 'Extracurricular Activities' : 'Punishments',
+                parent: type === 'activity' ? 'Extracurricular Activity' : 'Punishments',
                 userType
             })
+        })
+        .catch(console.log)
+}
+
+const selectChild = (req, res) => {
+    const { type } = req.params;
+    User.getChildren(req.user._id)
+        .then(([data]) => {
+            res.render('selectChild', {
+                data: data.children,
+                moment,
+                parent: type === 'activity' ? 'Extracurricular Activity' : 'Punishments',
+                child: 'List',
+                link: '/activities/viewStudent/' + type + '/'
+            });
         })
         .catch(console.log)
 }
@@ -109,6 +127,6 @@ module.exports = {
     viewEidtPage,
     deleteOne,
     get,
-    getStudent
-
+    getStudent,
+    selectChild
 }

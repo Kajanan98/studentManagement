@@ -64,13 +64,13 @@ exports.updateUser = (_id, name, address, mobile, NIC) => {
 exports.getLastStudentId = () => {
     return User.find({
         type: 'student',
-        NIC: {
-            $type: "int"
-        }
+        // NIC: {
+        //     $type: "int"
+        // }
     })
         .sort({ NIC: 0 })
         .limit(1)
-        .then(record => String((record[0] ? record[0].NIC : 0) + 1).padStart(4, '0'))
+        .then(record => String((record[0] && !isNaN(Number(record[0].NIC)) ? Number(record[0].NIC) : 0) + 1).padStart(4, '0'))
 }
 
 exports.findByUsername = (username) => {

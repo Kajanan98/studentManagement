@@ -320,14 +320,29 @@ const menus = {
                     href: "/users"
                 },
                 {
+                    title: 'View Principal',
+                    icon: 'fas fa-user',
+                    href: "/users/viewPrincipal"
+                },
+                {
+                    title: 'View Teachers',
+                    icon: 'fas fa-user',
+                    href: "/users/viewTeacher"
+                },
+                {
+                    title: 'View Students',
+                    icon: 'fas fa-user',
+                    href: "/users/viewStudent"
+                },
+                {
+                    title: 'View Parents',
+                    icon: 'fas fa-user',
+                    href: "/users/viewParent"
+                },
+                {
                     title: 'Manage',
                     icon: 'fas fa-user-cog',
                     href: "/users/manage"
-                },
-                {
-                    title: 'Add Teacher',
-                    icon: 'fas fa-plus',
-                    href: "/users/addTeacher"
                 },
                 {
                     title: 'Add Student',
@@ -405,16 +420,6 @@ const menus = {
                     icon: 'fas fa-calendar-alt',
                     href: "/timetables"
                 },
-                {
-                    title: 'List',
-                    icon: 'fas fa-list',
-                    href: "/timetables/list"
-                },
-                {
-                    title: 'Add Timetable',
-                    icon: 'fas fa-plus',
-                    href: "/timetables/new"
-                },
             ]
         },
         {
@@ -448,16 +453,6 @@ const menus = {
                     title: 'Dates',
                     icon: 'fas fa-calendar-alt',
                     href: "/exams"
-                },
-                {
-                    title: 'Manage',
-                    icon: 'fas fa-cogs',
-                    href: "/exams/manage"
-                },
-                {
-                    title: 'Add Exam',
-                    icon: 'fas fa-plus',
-                    href: "/exams/new"
                 },
                 {
                     title: 'Results',
@@ -496,7 +491,11 @@ const menus = {
                     icon: 'fas fa-poll',
                     href: "/reports/results"
                 },
-
+                {
+                    title: 'Students',
+                    icon: 'fas fa-users',
+                    href: "/reports/students"
+                },
             ]
         },
         {
@@ -526,6 +525,23 @@ const menus = {
                     title: 'Add Extracurricular Activity',
                     icon: 'fas fa-plus',
                     href: "/activities/new"
+                },
+            ]
+        },
+        {
+            title: 'Punishments',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/view/punishment"
+                },
+                {
+                    title: 'Add Punishment',
+                    icon: 'fas fa-plus',
+                    href: "/activities/new/punishment"
                 },
 
             ]
@@ -558,6 +574,23 @@ const menus = {
             ]
         },
         {
+            title: 'Users',
+            icon: 'fas fa-users',
+            href: "#",
+            children: [
+                {
+                    title: 'View Principal',
+                    icon: 'fas fa-user',
+                    href: "/users/viewPrincipal"
+                },
+                {
+                    title: 'View Teachers',
+                    icon: 'fas fa-user',
+                    href: "/users/viewTeacher"
+                },
+            ]
+        },
+        {
 
             title: 'Notices',
             icon: 'fas fa-book',
@@ -603,7 +636,7 @@ const menus = {
                 {
                     title: 'View',
                     icon: 'fas fa-list',
-                    href: "/attendance"
+                    href: "/attendance/forOneStudent/my"
                 },
             ]
         },
@@ -620,7 +653,7 @@ const menus = {
                 {
                     title: 'Results',
                     icon: 'fas fa-poll',
-                    href: "/exams/results"
+                    href: "/exams/resultForOne/my"
                 },
             ]
         },
@@ -632,9 +665,21 @@ const menus = {
                 {
                     title: 'List',
                     icon: 'fas fa-list',
-                    href: "/activities/viewStudent"
+                    href: "/activities/viewStudent/activity/my"
                 },
 
+            ]
+        },
+        {
+            title: 'Punishments',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/viewStudent/punishment/my"
+                },
             ]
         },
     ],
@@ -665,6 +710,23 @@ const menus = {
             ]
         },
         {
+            title: 'Users',
+            icon: 'fas fa-users',
+            href: "#",
+            children: [
+                {
+                    title: 'View Principal',
+                    icon: 'fas fa-user',
+                    href: "/users/viewPrincipal"
+                },
+                {
+                    title: 'View Teachers',
+                    icon: 'fas fa-user',
+                    href: "/users/viewTeacher"
+                },
+            ]
+        },
+        {
 
             title: 'Notices',
             icon: 'fas fa-book',
@@ -710,7 +772,7 @@ const menus = {
                 {
                     title: 'View',
                     icon: 'fas fa-list',
-                    href: "/attendance"
+                    href: "/attendance/forOneStudent"
                 },
             ]
         },
@@ -727,7 +789,7 @@ const menus = {
                 {
                     title: 'Results',
                     icon: 'fas fa-poll',
-                    href: "/exams/results"
+                    href: "/exams/resultForOne"
                 },
             ]
         },
@@ -740,6 +802,31 @@ const menus = {
                     title: 'List',
                     icon: 'fas fa-list',
                     href: "/children"
+                },
+            ]
+        },
+        {
+            title: 'Extracurricular Activity',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/viewStudent/activity"
+                },
+
+            ]
+        },
+        {
+            title: 'Punishments',
+            icon: 'fas fa-tasks',
+            href: "#",
+            children: [
+                {
+                    title: 'List',
+                    icon: 'fas fa-list',
+                    href: "/activities/viewStudent/punishment"
                 },
             ]
         },

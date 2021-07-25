@@ -1,0 +1,51 @@
+<!-- header-section start -->
+<%- include('../partials/_top', {title:"Student Result", current_menu : {parent: 'Exams', child: 'Results'} }) %>
+<!-- header-section end -->
+<style>
+  @media print {
+    .card.card-primary {
+      font-family:georgia, times, serif;
+    }
+    .main-footer, .card-footer {
+      display: none;
+    }
+  }
+</style>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        Exam Results
+      </div>
+      <div class="card-body">
+        <% exams.forEach( (exam, id) => { %>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="text-muted text-left "><%= id+1 %></h4>
+              <ul class="list-group list-group-unbordered mb-3" style="width: 100%;">
+                <li class="list-group-item">
+                  <b>Date</b> <a class="float-right"><%= moment(exam.date).format("MM/DD/YYYY hh:mm") %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Class</b> <a class="float-right"><%= exam.class.title %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Subject</b> <a class="float-right"><%= exam.subject %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Result</b> <a class="float-right"><%= exam.results.result %></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+      
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/_bottom') %>

@@ -1,7 +1,7 @@
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- header-section start -->
-<%- include('../partials/_top', {title:"Add Exam", current_menu : {parent: 'Exams', child: 'Add Result'} }) %>
+<%- include('../partials/_top', {title:"Manage Results", current_menu : {parent: 'Exams', child: 'Add Result'} }) %>
 <!-- header-section end -->
 
 <div class="card card-primary m-3">
@@ -38,21 +38,64 @@
               </div>
             </div>
         </div>
-        <form method="post" action="<%='/exams/resultItem/'+data.result._id %>">
-            <div class="form-group row">
+
+        <div class="form-group">
+          <label for="students">Results</label>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 40px">#</th>
+                <th colspan="2">Student</th>
+                <th>Result</th>
+                <th style="width: 120px" class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.results.forEach(function(result){%>
+                  <tr>
+                      <% classStudentDetail = students.find( student => student._id.toString() === result.studentId.toString() ) %>
+                      <td></td>
+                      <td style="padding: 0 15px"><%= classStudentDetail.name %></td>
+                      <td style="padding: 0 15px"><%= classStudentDetail.username %></td>
+                      <td style="padding: 0 15px"><%= result.result %></td>
+                      <td style="padding: 0 15px">
+                          <form method="get" action="<%='/exams/delete/resultItem/'+result._id %>">
+                              <button type="submit" name="studentId" class="btn btn-primary">Remove</button>
+                          </form>
+                      </td>
+                  </tr>
+              <%})%>
+              <% if(data.results.length == 0){%>
+                  <tr>
+                      <td></td>
+                      <td colspan="4">No results added</td>
+                  </tr>
+              <%}%>
+            </tbody>
+          </table>
+      </div>
+      <form method="post" action="<%='/exams/addResult/'+data._id %>">
+          <% restStudents = students.filter(student => !data.results.find(res => res.studentId.toString() === student._id.toString())) %>
+          <% if(restStudents.length == 0){%>
+              <div class="form-group">
+                  <label>No more students to add</label>
+              </div>
+          <%} else { %>
+              <div class="form-group row">
                 <label for="students" class="col-sm-2 col-form-label">Student</label>
                 <select class="form-control col-sm-3" id="students" name="studentId">
-                    <% students.forEach(function(user){%>
-                        <option value="<%= user._id %>" <%= user._id.toString()==data.result.studentId.toString()? "selected" : "" %>><%= user.name %> - <%= user.username %></option>
+                    <% restStudents.forEach(function(user){%>
+                        <option value="<%= user._id %>"><%= user.name %> - <%= user.username %></option>
                     <%})%>
                 </select>
                 <label for="result" class="col-sm-2 col-form-label">Result</label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control" id="result" name="result" value="<%= data.result.result %>" placeholder="Result">
+                    <input type="number" class="form-control" id="result" name="result" placeholder="Result">
                 </div>
-                <button type="submit" class="btn btn-primary col-sm-2">Update</button>
-            </div>
-        </form>
+                <button type="submit" class="btn btn-primary col-sm-2">Add</button>
+              </div>
+          <%}%>
+      </form>
     </div>
     <!-- /.card-body -->
 </div>
